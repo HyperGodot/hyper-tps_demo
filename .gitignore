@@ -1,0 +1,3 @@
+# ignore Godot .import folder (we want the .import files though)
+.import
+.dat
