@@ -8,11 +8,67 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "DateTimeUtil",
+"language": "GDScript",
+"path": "res://addons/jc.godot.time-of-day/Code/TimeOfDay/DateTime/DateTimeUtil.gd"
+}, {
+"base": "Reference",
+"class": "OrbitalElements",
+"language": "GDScript",
+"path": "res://addons/jc.godot.time-of-day/Code/TimeOfDay/OrbitalElements.gd"
+}, {
+"base": "Reference",
+"class": "ScatterLib",
+"language": "GDScript",
+"path": "res://addons/jc.godot.time-of-day/Code/Sky/ScatterLib.gd"
+}, {
+"base": "Reference",
+"class": "SkyConst",
+"language": "GDScript",
+"path": "res://addons/jc.godot.time-of-day/Code/Sky/SkyConstants.gd"
+}, {
+"base": "Node",
+"class": "Skydome",
+"language": "GDScript",
+"path": "res://addons/jc.godot.time-of-day/Code/Sky/Skydome.gd"
+}, {
+"base": "Resource",
+"class": "SkydomeResources",
+"language": "GDScript",
+"path": "res://addons/jc.godot.time-of-day/Code/Sky/SkydomeResources.gd"
+}, {
+"base": "Reference",
+"class": "TOD_Math",
+"language": "GDScript",
+"path": "res://addons/jc.godot.time-of-day/Code/Util/TOD_Math.gd"
+}, {
+"base": "Node",
+"class": "TimeOfDay",
+"language": "GDScript",
+"path": "res://addons/jc.godot.time-of-day/Code/TimeOfDay/TimeOfDay.gd"
+} ]
+_global_script_class_icons={
+"DateTimeUtil": "",
+"OrbitalElements": "",
+"ScatterLib": "",
+"SkyConst": "",
+"Skydome": "",
+"SkydomeResources": "",
+"TOD_Math": "",
+"TimeOfDay": ""
+}
+
 [application]
 
 config/name="Godot TPS Demo"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/jc.godot.time-of-day/plugin.cfg" )
 
 [physics]
 
