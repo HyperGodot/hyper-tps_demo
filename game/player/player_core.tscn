@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/models/tumble/model_tumble.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/models/tumble/tumble/sprint-loop.tres" type="Animation" id=2]
@@ -23,12 +23,14 @@
 [ext_resource path="res://assets/models/tumble/tumble/wall_grab_r-loop.tres" type="Animation" id=21]
 [ext_resource path="res://assets/models/tumble/tumble/wall_run_r-loop.tres" type="Animation" id=22]
 [ext_resource path="res://assets/models/tumble/tumble/wall_run_l-loop.tres" type="Animation" id=23]
+[ext_resource path="res://game/player/player_core.gd" type="Script" id=24]
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.3
 height = 1.58
 
 [node name="PlayerCore" type="KinematicBody"]
+script = ExtResource( 24 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.788, 0 )

@@ -5,18 +5,16 @@ onready var inputValue : Label = $Panel/MarginContainer/GridContainer/Input_Valu
 onready var velocityValue : Label = $Panel/MarginContainer/GridContainer/Velocity_Value
 onready var angularVelocity : Label = $Panel/MarginContainer/GridContainer/AngularVelocity
 onready var angularVelocityValue : Label = $Panel/MarginContainer/GridContainer/AngularVelocity_Value
-onready var physicsMode : Label = $Panel/MarginContainer/GridContainer/PhysicsMode_Value
 
 
 func _ready():
 	inputValue.text = String(Vector3.ZERO)
 	velocityValue.text = String(Vector3.ZERO)
 	if(playerNode is KinematicBody):
-		angularVelocity.text = "On Floor"
+		angularVelocity.text = "On Floor :"
 		angularVelocityValue.text = "N/A"
 	else:
 		angularVelocityValue.text = "N/A"
-	physicsMode.text = physicsModeToString(playerNode)
 
 
 func _process(_delta):
@@ -30,11 +28,9 @@ func _process(_delta):
 	elif(playerNode is RigidBody):
 		velocityValue.text = String(playerNode.linear_velocity)
 		angularVelocityValue.text = String(playerNode.angular_velocity)
-	
-	physicsMode.text = physicsModeToString(playerNode)
 
 
-func physicsModeToString(physicsNode : Spatial) -> String:
+func physicsModeToString() -> String:
 	if(playerNode is KinematicBody):
 		return "KinematicBody"
 	elif(playerNode is RigidBody):
