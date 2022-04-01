@@ -8,6 +8,7 @@ var localSnapshotTimer : Timer
 const knownPlayers = {}
 
 const EVENT_PLAYER_SNAPSHOT = 'player_snapshot'
+const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
 
 var PlayerCoreLocal = preload("res://game/player/player_core_local.tscn")
 var PlayerCoreRemote = preload("res://game/player/player_core_remote.tscn")
@@ -60,6 +61,8 @@ func _on_HyperGossip_listening(extension_name):
 func _on_HyperGossip_event(type, data, from):
 	if type == EVENT_PLAYER_SNAPSHOT:
 		updatePlayerWithSnapshot(data, from)
+	elif type == EVENT_PLAYER_WANTSTOJUMP:
+		updatePlayer_wantstojump(data, from)
 	
 func get_player_object(id):
 	if knownPlayers.has(id):
@@ -86,6 +89,11 @@ func updatePlayerWithSnapshot(snapShotData, id):
 		meshDirection,
 		lookingDirection
 	)
+	
+func updatePlayer_wantstojump(data, id):
+	var remotePlayer = get_player_object(id)
+	
+	remotePlayer.playerWantsToJump = true
 
 func getPlayerLocalSnapshotData() -> Dictionary:
 	var snapshotPlayer : KinematicBody = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal")

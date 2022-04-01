@@ -1,5 +1,10 @@
 extends KinematicBody
 
+var hyperGossip : HyperGossip
+
+const EVENT_PLAYER_SNAPSHOT = 'player_snapshot'
+const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
+
 export var mouseSensitivity : float = 0.3
 export var movementSpeed : float = 14
 export var fallAcceleration : float = 27
@@ -46,6 +51,8 @@ var collisions : Dictionary = {}
 func _ready():
 	# Backup Origin
 	originalOrigin = self.translation
+	
+	hyperGossip = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGossip")
 	
 func snapShotUpdate(_translation : Vector3, _meshDirection : Vector3, _lookingDirection : Vector3):
 	self.translation = _translation
@@ -172,6 +179,7 @@ func _on_Input_player_change_physics_mode() -> void:
 
 func _on_Input_player_jump():
 	playerWantsToJump = true
+	hyperGossip.broadcast_event(EVENT_PLAYER_WANTSTOJUMP, "")
 	
 
 func _on_Input_player_shoot():
