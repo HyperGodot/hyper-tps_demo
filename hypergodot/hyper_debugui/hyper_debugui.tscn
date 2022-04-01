@@ -71,7 +71,7 @@ margin_top = 43.0
 margin_right = 160.0
 margin_bottom = 57.0
 rect_min_size = Vector2( 160, 0 )
-text = "Snapshots in 3 Seconds :"
+text = "Snapshot in 1 Seconds :"
 align = 2
 
 [node name="GossipUpdateRate_Value" type="HSlider" parent="HypercoreDebugPanel/HypercoreDebugContainer"]
@@ -83,9 +83,9 @@ rect_min_size = Vector2( 200, 0 )
 min_value = 0.5
 max_value = 10.0
 step = 0.5
-value = 3.0
+value = 1.0
 
-[node name="GossipIPList" type="Label" parent="HypercoreDebugPanel/HypercoreDebugContainer"]
+[node name="GossipIDList" type="Label" parent="HypercoreDebugPanel/HypercoreDebugContainer"]
 margin_top = 62.0
 margin_right = 160.0
 margin_bottom = 76.0

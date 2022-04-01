@@ -26,5 +26,12 @@ script = ExtResource( 3 )
 
 [node name="HyperDebugUI" parent="HyperGodot" instance=ExtResource( 5 )]
 
+[node name="LocalSnapshotTimer" type="Timer" parent="HyperGodot"]
+autostart = true
+
 [connection signal="started_gateway" from="HyperGodot/HyperGateway" to="HyperGodot" method="_on_HyperGateway_started_gateway"]
 [connection signal="stopped_gateway" from="HyperGodot/HyperGateway" to="HyperGodot" method="_on_HyperGateway_stopped_gateway"]
+[connection signal="event" from="HyperGodot/HyperGossip" to="HyperGodot" method="_on_HyperGossip_event"]
+[connection signal="listening" from="HyperGodot/HyperGossip" to="HyperGodot" method="_on_HyperGossip_listening"]
+[connection signal="gossip_update_rate_changed" from="HyperGodot/HyperDebugUI" to="HyperGodot" method="_on_HyperDebugUI_gossip_update_rate_changed"]
+[connection signal="timeout" from="HyperGodot/LocalSnapshotTimer" to="HyperGodot" method="_on_LocalSnapshotTimer_timeout"]

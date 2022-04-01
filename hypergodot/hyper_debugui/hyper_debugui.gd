@@ -6,6 +6,8 @@ onready var lGossipUpdateRate : Label = $HypercoreDebugPanel/HypercoreDebugConta
 onready var gatewayStartStopButton : Button = $HypercoreDebugPanel/HypercoreDebugContainer/GatewayStartStopButton
 onready var gatewayStatus : Label = $HypercoreDebugPanel/HypercoreDebugContainer/GatewayStatus_Value
 onready var gossipURL : Label = $HypercoreDebugPanel/HypercoreDebugContainer/GossipURL_Value
+onready var gossipIDList : ItemList = $HypercoreDebugPanel/HypercoreDebugContainer/GossipIDList_Value
+
 var hyperGateway : HyperGateway
 var hyperGossip : HyperGossip
 
@@ -39,5 +41,9 @@ func _on_GatewayStartStopButton_button_up() -> void:
 			hyperGateway.start()
 
 func _on_GossipUpdateRate_Value_value_changed(value : float) -> void:
-	lGossipUpdateRate.text = "Snapshots in " + String(value) + " Seconds: "
+	lGossipUpdateRate.text = "Snapshot in " + String(value) + " Seconds: "
 	emit_signal("gossip_update_rate_changed", value)
+
+
+func addGossipIDToList(gossipID) -> void :
+	gossipIDList.add_item(gossipID, null, false)

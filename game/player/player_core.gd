@@ -46,6 +46,11 @@ var collisions : Dictionary = {}
 func _ready():
 	# Backup Origin
 	originalOrigin = self.translation
+	
+func snapShotUpdate(_translation : Vector3, _meshDirection : Vector3, _lookingDirection : Vector3):
+	self.translation = _translation
+	self.meshNode.rotation = _meshDirection
+	self.currentDirection = _lookingDirection
 
 
 func _process(_delta):
