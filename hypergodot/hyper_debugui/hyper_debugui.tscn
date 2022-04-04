@@ -26,9 +26,6 @@ margin_top = 6.0
 margin_right = 543.0
 margin_bottom = 229.0
 columns = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GatewayStartStopButton" type="Button" parent="HypercoreDebugPanel/HypercoreDebugContainer"]
 margin_right = 160.0
@@ -71,7 +68,7 @@ margin_top = 43.0
 margin_right = 160.0
 margin_bottom = 57.0
 rect_min_size = Vector2( 160, 0 )
-text = "Snapshot in 1 Seconds :"
+text = "Snapshot 1.0 Seconds :"
 align = 2
 
 [node name="GossipUpdateRate_Value" type="HSlider" parent="HypercoreDebugPanel/HypercoreDebugContainer"]
@@ -80,9 +77,8 @@ margin_top = 42.0
 margin_right = 514.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 200, 0 )
-min_value = 0.5
 max_value = 10.0
-step = 0.5
+step = 0.25
 value = 1.0
 
 [node name="GossipIDList" type="Label" parent="HypercoreDebugPanel/HypercoreDebugContainer"]

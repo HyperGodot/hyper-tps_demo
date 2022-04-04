@@ -4,6 +4,8 @@ var hyperGossip : HyperGossip
 
 const EVENT_PLAYER_SNAPSHOT = 'player_snapshot'
 const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
+const EVENT_PLAYER_DIRECTION = 'player_direction'
+const EVENT_PLAYER_RESTOREORIGIN = 'player_restoreorigin'
 
 export var mouseSensitivity : float = 0.3
 export var movementSpeed : float = 14
@@ -28,11 +30,8 @@ onready var clippedCameraPivot : Spatial = $CameraHead/CameraPivot
 
 var originalOrigin : Vector3 = Vector3.ZERO
 
-var inputDirection : Vector3 = Vector3.ZERO
 var currentDirection : Vector3 = Vector3.ZERO
-var velocityAmount : Vector3 = Vector3.ZERO
-var finalgravityVelociy : Vector3 = Vector3.ZERO
-var finalMovement : Vector3 = Vector3.ZERO
+var moveNetworkUpdateAllowed : bool = true
 
 var restorePlayerOrigin : bool = false
 var jumpFloorDirection : Vector3 = Vector3(0,1,0)
@@ -87,12 +86,13 @@ func _physics_process(_delta):
 	kinematicVelocity = move_and_slide(kinematicVelocity, Vector3.UP)
 	
 	# Calculate Potential Jumping Animation
-	if(kinematicVelocity.y > 0.1):
-		$AnimationTree.set("parameters/air_transition/current", 0)
-		$AnimationTree.set("parameters/air_blend/blend_amount", -1)
-	elif(kinematicVelocity.y < -0.1):
-		$AnimationTree.set("parameters/air_transition/current", 0)
-		$AnimationTree.set("parameters/air_blend/blend_amount", 0)
+	if( !is_on_floor() ):
+		if(kinematicVelocity.y > 0.1):
+			$AnimationTree.set("parameters/air_transition/current", 0)
+			$AnimationTree.set("parameters/air_blend/blend_amount", -1)
+		elif(kinematicVelocity.y < -0.1):
+			$AnimationTree.set("parameters/air_transition/current", 0)
+			$AnimationTree.set("parameters/air_blend/blend_amount", 0)
 	else:
 		$AnimationTree.set("parameters/air_transition/current", 1)
 	
@@ -159,14 +159,7 @@ func canJump(state : PhysicsDirectBodyState):
 		return true
 
 func restorePlayerToOrigin() -> void:
-	# Ensure is not asleep
-	#if(self is RigidBody):
-	if(false):
-		self.sleeping = false
-		self.linear_velocity = Vector3.ZERO
-		self.angular_velocity = Vector3.ZERO
-	else:
-		kinematicVelocity = Vector3.ZERO
+	kinematicVelocity = Vector3.ZERO
 	self.translation = originalOrigin
 
 
@@ -177,8 +170,18 @@ func _on_Input_player_mousemotion_event(event):
 
 
 func _on_Input_player_move(direction : Vector3):
-	inputDirection = direction
 	currentDirection = direction
+	
+	if(moveNetworkUpdateAllowed):
+		var data : Dictionary = {
+		"direction": {
+			"x": currentDirection.x,
+			"y": currentDirection.y,
+			"z": currentDirection.z
+			}
+		}
+		hyperGossip.broadcast_event(EVENT_PLAYER_DIRECTION, data)
+		moveNetworkUpdateAllowed = false
 	#var h_rot = clippedCameraHead.global_transform.basis.get_euler().y
 	# Adjust Current Direction based on Mouse Direction
 	#currentDirection = Vector3(direction.x, 0, direction.z).rotated(Vector3.UP, h_rot).normalized()
@@ -186,6 +189,7 @@ func _on_Input_player_move(direction : Vector3):
 
 func _on_Input_player_restore_origin() -> void:
 	restorePlayerOrigin = true
+	hyperGossip.broadcast_event(EVENT_PLAYER_RESTOREORIGIN, "")
 
 func _on_Input_player_change_physics_mode() -> void:
 	self.mode += 1
@@ -232,4 +236,6 @@ func _on_Player_body_exited(body : Node) -> void:
 func _on_level_test_new_player(id):
 	# hyperdebugui_gossipid_list.add_item(id, null, false)
 	pass
-	
+
+func _on_MoveNetworkTimer_timeout():
+	moveNetworkUpdateAllowed = true

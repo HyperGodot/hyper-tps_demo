@@ -9,6 +9,8 @@ const knownPlayers = {}
 
 const EVENT_PLAYER_SNAPSHOT = 'player_snapshot'
 const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
+const EVENT_PLAYER_DIRECTION = 'player_direction'
+const EVENT_PLAYER_RESTOREORIGIN = 'player_restoreorigin'
 
 var PlayerCoreLocal = preload("res://game/player/player_core_local.tscn")
 var PlayerCoreRemote = preload("res://game/player/player_core_remote.tscn")
@@ -63,6 +65,10 @@ func _on_HyperGossip_event(type, data, from):
 		updatePlayerWithSnapshot(data, from)
 	elif type == EVENT_PLAYER_WANTSTOJUMP:
 		updatePlayer_wantstojump(data, from)
+	elif type == EVENT_PLAYER_DIRECTION:
+		updatePlayer_direction(data, from)
+	elif type == EVENT_PLAYER_RESTOREORIGIN:
+		updatePlayer_restoreOrigin(data, from)
 	
 func get_player_object(id):
 	if knownPlayers.has(id):
@@ -94,6 +100,16 @@ func updatePlayer_wantstojump(data, id):
 	var remotePlayer = get_player_object(id)
 	
 	remotePlayer.playerWantsToJump = true
+	
+func updatePlayer_restoreOrigin(data, id):
+	var remotePlayer = get_player_object(id)
+	
+	remotePlayer.restorePlayerToOrigin()
+	
+func updatePlayer_direction(data, id):
+	var remotePlayer = get_player_object(id)
+	
+	remotePlayer.direction = Vector3(data.direction.x, data.direction.y, data.direction.z)
 
 func getPlayerLocalSnapshotData() -> Dictionary:
 	var snapshotPlayer : KinematicBody = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal")
