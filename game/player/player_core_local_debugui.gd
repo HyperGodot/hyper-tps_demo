@@ -1,10 +1,14 @@
 extends Control
 
 onready var playerNode = get_node("../../../Players/PlayerLocal")
+onready var currentMapNode : Node = get_tree().get_current_scene().get_node("CurrentMap")
+onready var actualMapNode : Spatial = get_tree().get_current_scene().get_node("CurrentMap").find_node("*", true, false)
 onready var inputValue : Label = $Panel/MarginContainer/GridContainer/Input_Value
 onready var velocityValue : Label = $Panel/MarginContainer/GridContainer/Velocity_Value
 onready var angularVelocity : Label = $Panel/MarginContainer/GridContainer/AngularVelocity
 onready var angularVelocityValue : Label = $Panel/MarginContainer/GridContainer/AngularVelocity_Value
+
+var map_cyber = preload("res://assets/maps/maps_cyber/level0.tscn")
 
 
 func _ready():
@@ -46,3 +50,9 @@ func physicsModeToString() -> String:
 			return "Unknown"
 	else:
 		return "Unknown"
+
+
+func _on_Button_button_up():
+	actualMapNode.queue_free()
+	var newMap = map_cyber.instance()
+	currentMapNode.add_child(newMap)

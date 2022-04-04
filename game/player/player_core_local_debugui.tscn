@@ -8,6 +8,7 @@ bg_color = Color( 0, 0, 0, 0.470588 )
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 157, 196 )
 script = ExtResource( 1 )
 
 [node name="Panel" type="Panel" parent="."]
@@ -88,3 +89,52 @@ margin_bottom = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Panel2" type="Panel" parent="."]
+margin_left = 10.0
+margin_top = 80.0
+margin_right = 333.0
+margin_bottom = 140.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel2"]
+margin_left = 4.0
+margin_top = 6.0
+margin_right = 147.0
+margin_bottom = 56.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="Panel2/MarginContainer"]
+margin_right = 143.0
+margin_bottom = 50.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Map" type="Label" parent="Panel2/MarginContainer/GridContainer"]
+margin_right = 120.0
+margin_bottom = 14.0
+text = "Map :"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Map_Value" type="Label" parent="Panel2/MarginContainer/GridContainer"]
+margin_left = 124.0
+margin_right = 124.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Panel2/MarginContainer/GridContainer"]
+margin_top = 18.0
+margin_right = 120.0
+margin_bottom = 38.0
+text = "Test Map Change"
+
+[connection signal="button_up" from="Panel2/MarginContainer/GridContainer/Button" to="." method="_on_Button_button_up"]
