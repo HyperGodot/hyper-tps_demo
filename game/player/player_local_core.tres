@@ -131,7 +131,7 @@ input_2/name = "not_wall"
 input_2/auto_advance = false
 
 [resource]
-graph_offset = Vector2( -1222.16, -121 )
+graph_offset = Vector2( -977.333, -422.667 )
 nodes/Animation/node = SubResource( 27 )
 nodes/Animation/position = Vector2( -240, 320 )
 "nodes/Animation 10/node" = SubResource( 51 )

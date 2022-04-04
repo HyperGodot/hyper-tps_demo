@@ -8,12 +8,12 @@ const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
 export var mouseSensitivity : float = 0.3
 export var movementSpeed : float = 14
 export var fallAcceleration : float = 27
-export var movementAcceleration : float = 10
+export var movementAcceleration : float = 4
 export var canJumpHeight : float = 10
 export var jumpHeight : float = 15
-export var accelerationDefault : float = 10.0
 export var turn_velocity : float = 15
 export var cameraLerpAmount : float = 40
+export var currentSpeed : float = 0
 
 onready var meshNode : Spatial = $Model
 onready var clippedCamera : Spatial = $CameraHead/CameraPivot/ClippedCamera
@@ -65,6 +65,7 @@ func _process(_delta):
 		meshNode.rotation.y = lerp_angle(meshNode.rotation.y, atan2(-currentDirection.x, -currentDirection.z), turn_velocity * _delta)
 	
 
+var jumpingUp : bool
 func _physics_process(_delta):
 	# If player requested restore to origin, do it here first
 	if(restorePlayerOrigin):
@@ -82,7 +83,22 @@ func _physics_process(_delta):
 		playerWantsToJump = false
 		if( playerCanJump() ):
 			kinematicVelocity.y = jumpHeight
+			jumpingUp = true
 	kinematicVelocity = move_and_slide(kinematicVelocity, Vector3.UP)
+	
+	# Calculate Potential Jumping Animation
+	if(kinematicVelocity.y > 0.1):
+		$AnimationTree.set("parameters/air_transition/current", 0)
+		$AnimationTree.set("parameters/air_blend/blend_amount", -1)
+	elif(kinematicVelocity.y < -0.1):
+		$AnimationTree.set("parameters/air_transition/current", 0)
+		$AnimationTree.set("parameters/air_blend/blend_amount", 0)
+	else:
+		$AnimationTree.set("parameters/air_transition/current", 1)
+	
+	# Calculate Running Animation
+	currentSpeed = ( (abs(kinematicVelocity.x) + abs(kinematicVelocity.z) - 7) / 7)
+	$AnimationTree.set("parameters/iwr_blend/blend_amount", currentSpeed)
 		
 	
 	#	self.linear_velocity.y += jumpHeight

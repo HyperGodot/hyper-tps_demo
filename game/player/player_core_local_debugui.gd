@@ -5,10 +5,11 @@ onready var currentMapNode : Node = get_tree().get_current_scene().get_node("Cur
 onready var actualMapNode : Spatial = get_tree().get_current_scene().get_node("CurrentMap").find_node("*", true, false)
 onready var inputValue : Label = $Panel/MarginContainer/GridContainer/Input_Value
 onready var velocityValue : Label = $Panel/MarginContainer/GridContainer/Velocity_Value
+onready var speedValue : Label = $Panel/MarginContainer/GridContainer/Speed_Value
 onready var angularVelocity : Label = $Panel/MarginContainer/GridContainer/AngularVelocity
 onready var angularVelocityValue : Label = $Panel/MarginContainer/GridContainer/AngularVelocity_Value
 
-var map_cyber = preload("res://assets/maps/maps_cyber/level0.tscn")
+# var map_cyber = preload("res://assets/maps/maps_cyber/level0.tscn")
 
 
 func _ready():
@@ -25,6 +26,7 @@ func _process(_delta):
 	inputValue.text = String(playerNode.currentDirection)
 	if(playerNode is KinematicBody):
 		velocityValue.text = String(playerNode.kinematicVelocity)
+		speedValue.text = String(playerNode.currentSpeed)
 		if( playerNode.is_on_floor() ):
 			angularVelocityValue.text = "Yes"
 		else:
@@ -53,6 +55,7 @@ func physicsModeToString() -> String:
 
 
 func _on_Button_button_up():
-	actualMapNode.queue_free()
-	var newMap = map_cyber.instance()
-	currentMapNode.add_child(newMap)
+	#actualMapNode.queue_free()
+	#var newMap = map_cyber.instance()
+	#currentMapNode.add_child(newMap)
+	pass
