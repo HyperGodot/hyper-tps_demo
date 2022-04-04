@@ -109,7 +109,7 @@ func updatePlayer_restoreOrigin(data, id):
 func updatePlayer_direction(data, id):
 	var remotePlayer = get_player_object(id)
 	
-	remotePlayer.direction = Vector3(data.direction.x, data.direction.y, data.direction.z)
+	remotePlayer.currentDirection = Vector3(data.direction.x, data.direction.y, data.direction.z)
 
 func getPlayerLocalSnapshotData() -> Dictionary:
 	var snapshotPlayer : KinematicBody = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal")
