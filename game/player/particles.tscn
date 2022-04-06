@@ -19,7 +19,7 @@ params_billboard_mode = 1
 [sub_resource type="QuadMesh" id=3]
 material = SubResource( 2 )
 
-[node name="Spatial" type="Spatial"]
+[node name="Spatial2" type="Spatial"]
 
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161556, -0.0229268, -0.0555327 )
