@@ -104,7 +104,7 @@ parameters/walk_scale/scale = 1.0
 parameters/wall_run/current = 2
 
 [node name="MoveNetworkTimer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.1
 autostart = true
 
 [connection signal="timeout" from="MoveNetworkTimer" to="." method="_on_MoveNetworkTimer_timeout"]
