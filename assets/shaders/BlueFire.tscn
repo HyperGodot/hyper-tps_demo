@@ -15,25 +15,20 @@ shader_param/noise_texture = ExtResource( 2 )
 shader_param/texture_mask = ExtResource( 1 )
 
 [sub_resource type="Curve" id=4]
-_data = [ Vector2( 0, 0 ), 0.0, 3.65289, 0, 0, Vector2( 0.556561, 1 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0.0108696, 0.0090909 ), 0.0, -0.418182, 0, 0, Vector2( 1, 1 ), 1.27656, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=5]
 width = 128
 curve = SubResource( 4 )
 
 [sub_resource type="ParticlesMaterial" id=8]
-lifetime_randomness = 0.81
-emission_shape = 5
-emission_ring_radius = 2.0
-emission_ring_inner_radius = 0.0
-emission_ring_height = 1.0
-emission_ring_axis = Vector3( 0, 0, 1 )
+emission_shape = 1
+emission_sphere_radius = 1.0
 direction = Vector3( 0, 1, 0 )
 spread = 0.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 0.5
 linear_accel = 4.0
-scale = 2.0
 scale_random = 1.0
 scale_curve = SubResource( 5 )
 color_ramp = ExtResource( 4 )
@@ -45,9 +40,9 @@ size = Vector2( 0.5, 0.5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78327, 1.26708, 0 )
 material_override = SubResource( 1 )
 cast_shadow = 0
-amount = 50
+amount = 20
+explosiveness = 0.45
 randomness = 0.74
-local_coords = false
 draw_order = 1
 process_material = SubResource( 8 )
 draw_pass_1 = SubResource( 7 )
