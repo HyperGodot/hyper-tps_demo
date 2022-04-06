@@ -7,10 +7,11 @@ var localSnapshotTimer : Timer
 
 const knownPlayers = {}
 
+# TODO : Move these out of here and share with Gossip / game-level constants
 const EVENT_PLAYER_SNAPSHOT = 'player_snapshot'
 const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
 const EVENT_PLAYER_DIRECTION = 'player_direction'
-const EVENT_PLAYER_RESTOREORIGIN = 'player_restoreorigin'
+const EVENT_PLAYER_RESPAWNPLAYER = 'player_respawnplayer'
 
 var PlayerCoreLocal = preload("res://game/player/player_core_local.tscn")
 var PlayerCoreRemote = preload("res://game/player/player_core_remote.tscn")
@@ -67,8 +68,8 @@ func _on_HyperGossip_event(type, data, from):
 		updatePlayer_wantstojump(data, from)
 	elif type == EVENT_PLAYER_DIRECTION:
 		updatePlayer_direction(data, from)
-	elif type == EVENT_PLAYER_RESTOREORIGIN:
-		updatePlayer_restoreOrigin(data, from)
+	elif type == EVENT_PLAYER_RESPAWNPLAYER:
+		updatePlayer_respawnPlayer(data, from)
 	
 func get_player_object(id):
 	if knownPlayers.has(id):
@@ -103,10 +104,11 @@ func updatePlayer_wantstojump(data, id):
 	remotePlayer.directionUpdate( Vector3(data.direction.x, data.direction.y, data.direction.z) )
 	remotePlayer.playerWantsToJump = true
 	
-func updatePlayer_restoreOrigin(data, id):
+func updatePlayer_respawnPlayer(data, id):
 	var remotePlayer = get_player_object(id)
 	
-	remotePlayer.restorePlayerToOrigin()
+	remotePlayer.currentSpawnLocation = Vector3(data.spawnLocation.x, data.spawnLocation.y, data.spawnLocation.z)
+	remotePlayer.respawnPlayer()
 	
 func updatePlayer_direction(data, id):
 	var remotePlayer = get_player_object(id)

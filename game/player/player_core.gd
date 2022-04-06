@@ -2,10 +2,11 @@ extends KinematicBody
 
 var hyperGossip : HyperGossip
 
+# TODO : These probably should not be in player_core, though I am uncertain yet if they belong elsewhere
 const EVENT_PLAYER_SNAPSHOT = 'player_snapshot'
 const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
 const EVENT_PLAYER_DIRECTION = 'player_direction'
-const EVENT_PLAYER_RESTOREORIGIN = 'player_restoreorigin'
+const EVENT_PLAYER_RESPAWNPLAYER = 'player_respawnplayer'
 
 export var mouseSensitivity : float = 0.3
 export var movementSpeed : float = 14
@@ -28,12 +29,14 @@ onready var clippedCameraPivot : Spatial = $CameraHead/CameraPivot
 #onready var hyperdebugui_gateway_startstop_button : Button = $HyperGodotDebugUI/HypercoreDebugPanel/HypercoreDebugContainer/GatewayStartStopButton
 #onready var hyperdebugui_gossipid_list : ItemList = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGateway")
 
+var currentMap : Node = null
 var originalOrigin : Vector3 = Vector3.ZERO
+var currentSpawnLocation : Vector3 = Vector3.ZERO
 
 var currentDirection : Vector3 = Vector3.ZERO
 var moveNetworkUpdateAllowed : bool = true
 
-var restorePlayerOrigin : bool = false
+var playerWantsToRespawn : bool = false
 var jumpFloorDirection : Vector3 = Vector3(0,1,0)
 var playerCanJump : bool = false
 var playerWantsToJump : bool = false
@@ -48,9 +51,17 @@ var kinematicVelocity : Vector3 = Vector3.ZERO
 var collisions : Dictionary = {}
 
 func _ready():
+	# Get Current Map
+	currentMap = get_tree().get_current_scene().get_node("CurrentMap").get_child(0)
+	
 	# Backup Origin
 	originalOrigin = self.translation
 	
+	# Spawn into Map
+	currentSpawnLocation = getSpawnLocation()
+	playerWantsToRespawn = true
+	
+	# Get HyperGossip
 	hyperGossip = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGossip")
 	
 func snapShotUpdate(_translation : Vector3, _meshDirection : Vector3, _lookingDirection : Vector3):
@@ -63,6 +74,10 @@ func translationUpdate(_translation : Vector3):
 
 func directionUpdate(_direction : Vector3):
 	self.currentDirection = _direction
+	
+func getSpawnLocation() -> Vector3:
+	var spawnLocation : Vector3 = currentMap.getSpawnLocation()
+	return spawnLocation
 
 
 func _process(_delta):
@@ -80,10 +95,10 @@ func _process(_delta):
 
 var jumpingUp : bool
 func _physics_process(_delta):
-	# If player requested restore to origin, do it here first
-	if(restorePlayerOrigin):
-		restorePlayerToOrigin()
-		restorePlayerOrigin = false
+	# Respawn Player here first
+	if(playerWantsToRespawn):
+		playerWantsToRespawn = false
+		respawnPlayer()
 		return
 	
 	# Moving the character
@@ -147,6 +162,10 @@ func _physics_process(_delta):
 	# Actually Movement
 	#velocityAmount = velocityAmount.linear_interpolate(currentDirection * movementSpeed, accelerationDefault * delta)
 	# finalMovement = velocityAmount + finalgravityVelociy
+	
+func respawnPlayer():
+	kinematicVelocity = Vector3.ZERO
+	self.translation = currentSpawnLocation
 
 func playerCanJump() -> bool:
 	if( self.is_on_floor() ):
@@ -172,11 +191,6 @@ func canJump(state : PhysicsDirectBodyState):
 			else:
 				parent.material_override = null
 		return true
-
-func restorePlayerToOrigin() -> void:
-	kinematicVelocity = Vector3.ZERO
-	self.translation = originalOrigin
-
 
 func _on_Input_player_mousemotion_event(event):
 	clippedCameraHead.rotate_y(deg2rad(-event.relative.x * mouseSensitivity))
@@ -208,8 +222,20 @@ func _on_Input_player_move(direction : Vector3):
 
 
 func _on_Input_player_restore_origin() -> void:
-	restorePlayerOrigin = true
-	hyperGossip.broadcast_event(EVENT_PLAYER_RESTOREORIGIN, "")
+	playerWantsToRespawn = true
+	var spawnLocation : Vector3 = getSpawnLocation()
+	currentSpawnLocation = spawnLocation
+	
+	var data : Dictionary = {
+	#"profile": profile,
+	"spawnLocation": {
+		"x": spawnLocation.x,
+		"y": spawnLocation.y,
+		"z": spawnLocation.z
+		}
+	}
+	
+	hyperGossip.broadcast_event(EVENT_PLAYER_RESPAWNPLAYER, data)
 
 func _on_Input_player_change_physics_mode() -> void:
 	self.mode += 1
