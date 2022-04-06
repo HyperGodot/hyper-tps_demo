@@ -59,7 +59,7 @@ func _on_HyperGossip_listening(extension_name):
 	var snapShotData : Dictionary = getPlayerLocalSnapshotData()
 	hyperGossip.broadcast_event(EVENT_PLAYER_SNAPSHOT, snapShotData)
 
-
+# TODO : Get these out of here and into player_core or player_core_remote
 func _on_HyperGossip_event(type, data, from):
 	if type == EVENT_PLAYER_SNAPSHOT:
 		updatePlayerWithSnapshot(data, from)
@@ -99,6 +99,8 @@ func updatePlayerWithSnapshot(snapShotData, id):
 func updatePlayer_wantstojump(data, id):
 	var remotePlayer = get_player_object(id)
 	
+	remotePlayer.translationUpdate( Vector3(data.translation.x, data.translation.y, data.translation.z) )
+	remotePlayer.directionUpdate( Vector3(data.direction.x, data.direction.y, data.direction.z) )
 	remotePlayer.playerWantsToJump = true
 	
 func updatePlayer_restoreOrigin(data, id):
@@ -109,7 +111,8 @@ func updatePlayer_restoreOrigin(data, id):
 func updatePlayer_direction(data, id):
 	var remotePlayer = get_player_object(id)
 	
-	remotePlayer.currentDirection = Vector3(data.direction.x, data.direction.y, data.direction.z)
+	remotePlayer.translationUpdate( Vector3(data.translation.x, data.translation.y, data.translation.z) )
+	remotePlayer.directionUpdate( Vector3(data.direction.x, data.direction.y, data.direction.z) )
 
 func getPlayerLocalSnapshotData() -> Dictionary:
 	var snapshotPlayer : KinematicBody = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal")

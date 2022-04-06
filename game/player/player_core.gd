@@ -57,11 +57,25 @@ func snapShotUpdate(_translation : Vector3, _meshDirection : Vector3, _lookingDi
 	self.translation = _translation
 	self.meshNode.rotation = _meshDirection
 	self.currentDirection = _lookingDirection
+	
+func translationUpdate(_translation : Vector3):
+	self.translation = _translation
+
+func directionUpdate(_direction : Vector3):
+	self.currentDirection = _direction
 
 
 func _process(_delta):
 	if(currentDirection != Vector3.ZERO):
 		meshNode.rotation.y = lerp_angle(meshNode.rotation.y, atan2(-currentDirection.x, -currentDirection.z), turn_velocity * _delta)
+	pass
+	var meshSkel : Skeleton
+	meshSkel = meshNode.find_node("Skeleton", true)
+	var bone = meshSkel.find_bone("DEF-hand.R")
+	var bonePos = meshSkel.get_bone_pose(bone)
+	bonePos = bonePos.scaled( Vector3(0, 0, 0) )
+	meshSkel.set_bone_pose(bone, bonePos)
+	#meshSkel.add_child(boneAttachment)
 	
 
 var jumpingUp : bool
@@ -83,6 +97,7 @@ func _physics_process(_delta):
 		if( playerCanJump() ):
 			kinematicVelocity.y = jumpHeight
 			jumpingUp = true
+			$Model/Sound_Jump.play()
 	kinematicVelocity = move_and_slide(kinematicVelocity, Vector3.UP)
 	
 	# Calculate Potential Jumping Animation
@@ -178,6 +193,11 @@ func _on_Input_player_move(direction : Vector3):
 			"x": currentDirection.x,
 			"y": currentDirection.y,
 			"z": currentDirection.z
+			},
+		"translation": {
+			"x": self.translation.x,
+			"y": self.translation.y,
+			"z": self.translation.z
 			}
 		}
 		hyperGossip.broadcast_event(EVENT_PLAYER_DIRECTION, data)
@@ -199,7 +219,7 @@ func _on_Input_player_change_physics_mode() -> void:
 
 func _on_Input_player_jump():
 	playerWantsToJump = true
-	hyperGossip.broadcast_event(EVENT_PLAYER_WANTSTOJUMP, "")
+	hyperGossip.broadcast_event(EVENT_PLAYER_WANTSTOJUMP, getPlayerLocalPositionData() )
 	
 
 func _on_Input_player_shoot():
@@ -239,3 +259,25 @@ func _on_level_test_new_player(id):
 
 func _on_MoveNetworkTimer_timeout():
 	moveNetworkUpdateAllowed = true
+	
+func getPlayerLocalPositionData() -> Dictionary:
+	# TODO : Fix finding the local player, and get it out of player_core into player_core_local
+	var localPlayer : KinematicBody = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal")
+	var translation : Vector3 = localPlayer.translation
+	var direction : Vector3 = localPlayer.currentDirection
+
+	var data : Dictionary = {
+	#"profile": profile,
+	"translation": {
+		"x": translation.x,
+		"y": translation.y,
+		"z": translation.z
+		},
+	"direction": {
+		"x": direction.x,
+		"y": direction.y,
+		"z": direction.z
+		}
+	}
+
+	return data

@@ -6,8 +6,7 @@ onready var actualMapNode : Spatial = get_tree().get_current_scene().get_node("C
 onready var inputValue : Label = $Panel/MarginContainer/GridContainer/Input_Value
 onready var velocityValue : Label = $Panel/MarginContainer/GridContainer/Velocity_Value
 onready var speedValue : Label = $Panel/MarginContainer/GridContainer/Speed_Value
-onready var angularVelocity : Label = $Panel/MarginContainer/GridContainer/AngularVelocity
-onready var angularVelocityValue : Label = $Panel/MarginContainer/GridContainer/AngularVelocity_Value
+onready var onfloorValue : Label = $Panel/MarginContainer/GridContainer/OnFloor_Value
 
 # var map_cyber = preload("res://assets/maps/maps_cyber/level0.tscn")
 
@@ -15,25 +14,17 @@ onready var angularVelocityValue : Label = $Panel/MarginContainer/GridContainer/
 func _ready():
 	inputValue.text = String(Vector3.ZERO)
 	velocityValue.text = String(Vector3.ZERO)
-	if(playerNode is KinematicBody):
-		angularVelocity.text = "On Floor :"
-		angularVelocityValue.text = "N/A"
-	else:
-		angularVelocityValue.text = "N/A"
+	onfloorValue.text = "N/A"
 
 
 func _process(_delta):
 	inputValue.text = String(playerNode.currentDirection)
-	if(playerNode is KinematicBody):
-		velocityValue.text = String(playerNode.kinematicVelocity)
-		speedValue.text = String(playerNode.currentSpeed)
-		if( playerNode.is_on_floor() ):
-			angularVelocityValue.text = "Yes"
-		else:
-			angularVelocityValue.text = "No"
-	elif(playerNode is RigidBody):
-		velocityValue.text = String(playerNode.linear_velocity)
-		angularVelocityValue.text = String(playerNode.angular_velocity)
+	velocityValue.text = String(playerNode.kinematicVelocity)
+	speedValue.text = String(playerNode.currentSpeed)
+	if( playerNode.is_on_floor() ):
+		onfloorValue.text = "Yes"
+	else:
+		onfloorValue.text = "No"
 
 
 func physicsModeToString() -> String:

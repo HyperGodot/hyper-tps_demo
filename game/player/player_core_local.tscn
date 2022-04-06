@@ -7,6 +7,10 @@
 
 [node name="PlayerCoreLocal" instance=ExtResource( 1 )]
 
+[node name="Sound_Jump" parent="Model" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+attenuation_filter_cutoff_hz = 20500.0
+
 [node name="Input" type="Node" parent="." index="4"]
 script = ExtResource( 2 )
 
