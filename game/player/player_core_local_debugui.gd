@@ -2,20 +2,32 @@ extends Control
 
 onready var playerNode = get_node("../../../Players/PlayerLocal")
 onready var currentMapNode : Node = get_tree().get_current_scene().get_node("CurrentMap")
-onready var actualMapNode : Node = get_tree().get_current_scene().get_node("CurrentMap").find_node("*", true, false)
 onready var inputValue : Label = $Panel/MarginContainer/GridContainer/Input_Value
 onready var velocityValue : Label = $Panel/MarginContainer/GridContainer/Velocity_Value
 onready var speedValue : Label = $Panel/MarginContainer/GridContainer/Speed_Value
 onready var onfloorValue : Label = $Panel/MarginContainer/GridContainer/OnFloor_Value
 
-# var map_cyber = preload("res://assets/maps/maps_cyber/level0.tscn")
+const EVENT_PLAYER_MAPCHANGE = 'player_mapchange'
+
+var actualMapNode : Node
+var hyperGossip : HyperGossip
+
+# TODO : I don't know where these should go, no real dynamic detection of nodes like this
+var map_test = preload("res://game/maps/map_test/map_test.tscn")
+var map_cyber = preload("res://game/maps/map_cyber/map_cyber.tscn")
+var map_cyber1 = preload("res://game/maps/map_cyber1/map_cyber1.scn")
 
 
 func _ready():
 	inputValue.text = String(Vector3.ZERO)
 	velocityValue.text = String(Vector3.ZERO)
 	onfloorValue.text = "N/A"
-
+	
+	# Update Actual Map Node
+	actualMapNode = get_tree().get_current_scene().get_node("CurrentMap").find_node("*", true, false)
+	
+	# Get HyperGossip
+	hyperGossip = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGossip")
 
 func _process(_delta):
 	inputValue.text = String(playerNode.currentDirection)
@@ -44,9 +56,41 @@ func physicsModeToString() -> String:
 	else:
 		return "Unknown"
 
+func _on_map_test_button_up():
+	tryMapChange("map_test", true)
 
-func _on_Button_button_up():
-	#actualMapNode.queue_free()
-	#var newMap = map_cyber.instance()
-	#currentMapNode.add_child(newMap)
-	pass
+
+func _on_map_cyber_button_up():
+	tryMapChange("map_cyber", true)
+	
+func _on_map_cyber1_button_up():
+	tryMapChange("map_cyber1", true)
+	
+func tryMapChange(mapChangeName : String, sendGossip : bool):
+	var mapCurrentName = actualMapNode.name
+	var mapNode = null
+	if(mapCurrentName != mapChangeName):
+		actualMapNode.queue_free()
+		if(mapChangeName == "map_test"):
+			mapNode = map_test
+		elif(mapChangeName == "map_cyber"):
+			mapNode = map_cyber
+		elif(mapChangeName == "map_cyber1"):
+			mapNode = map_cyber1
+		var newMap = mapNode.instance()
+		currentMapNode.add_child(newMap)
+		# Update Current Map
+		playerNode.currentMap = get_tree().get_current_scene().get_node("CurrentMap").get_child(1)
+		# Update Actual Map
+		actualMapNode = playerNode.currentMap
+		# Find a Respawn Point
+		playerNode.currentSpawnLocation = playerNode.getSpawnLocation()
+		playerNode.playerWantsToRespawn = true
+		
+		if(sendGossip):
+			var data : Dictionary = {
+			"map": {
+				"name": mapChangeName
+				}
+			}
+			hyperGossip.broadcast_event(EVENT_PLAYER_MAPCHANGE, data)

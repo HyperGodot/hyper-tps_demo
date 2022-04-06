@@ -29,7 +29,7 @@ onready var clippedCameraPivot : Spatial = $CameraHead/CameraPivot
 #onready var hyperdebugui_gateway_startstop_button : Button = $HyperGodotDebugUI/HypercoreDebugPanel/HypercoreDebugContainer/GatewayStartStopButton
 #onready var hyperdebugui_gossipid_list : ItemList = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGateway")
 
-var currentMap : Node = null
+var currentMap = null
 var originalOrigin : Vector3 = Vector3.ZERO
 var currentSpawnLocation : Vector3 = Vector3.ZERO
 

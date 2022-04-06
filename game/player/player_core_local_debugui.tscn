@@ -132,34 +132,37 @@ __meta__ = {
 }
 
 [node name="GridContainer" type="GridContainer" parent="Panel2/MarginContainer"]
-margin_right = 143.0
+margin_right = 249.0
 margin_bottom = 50.0
-columns = 2
+columns = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Map" type="Label" parent="Panel2/MarginContainer/GridContainer"]
-margin_right = 120.0
-margin_bottom = 14.0
-text = "Map :"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="MapChange" type="Label" parent="Panel2/MarginContainer/GridContainer"]
+margin_top = 3.0
+margin_right = 89.0
+margin_bottom = 17.0
+text = "Map Change :"
 
-[node name="Map_Value" type="Label" parent="Panel2/MarginContainer/GridContainer"]
-margin_left = 124.0
-margin_right = 124.0
-margin_bottom = 14.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="map_test" type="Button" parent="Panel2/MarginContainer/GridContainer"]
+margin_left = 93.0
+margin_right = 164.0
+margin_bottom = 20.0
+text = "map_test"
 
-[node name="Button" type="Button" parent="Panel2/MarginContainer/GridContainer"]
-margin_top = 18.0
-margin_right = 120.0
-margin_bottom = 38.0
-text = "Test Map Change"
+[node name="map_cyber" type="Button" parent="Panel2/MarginContainer/GridContainer"]
+margin_left = 168.0
+margin_right = 249.0
+margin_bottom = 20.0
+text = "map_cyber"
 
-[connection signal="button_up" from="Panel2/MarginContainer/GridContainer/Button" to="." method="_on_Button_button_up"]
+[node name="map_cyber1" type="Button" parent="Panel2/MarginContainer/GridContainer"]
+margin_top = 24.0
+margin_right = 89.0
+margin_bottom = 44.0
+text = "map_cyber1"
+
+[connection signal="button_up" from="Panel2/MarginContainer/GridContainer/map_test" to="." method="_on_map_test_button_up"]
+[connection signal="button_up" from="Panel2/MarginContainer/GridContainer/map_cyber" to="." method="_on_map_cyber_button_up"]
+[connection signal="button_up" from="Panel2/MarginContainer/GridContainer/map_cyber1" to="." method="_on_map_cyber1_button_up"]

@@ -12,9 +12,11 @@ const EVENT_PLAYER_SNAPSHOT = 'player_snapshot'
 const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
 const EVENT_PLAYER_DIRECTION = 'player_direction'
 const EVENT_PLAYER_RESPAWNPLAYER = 'player_respawnplayer'
+const EVENT_PLAYER_MAPCHANGE = 'player_mapchange'
 
 var PlayerCoreLocal = preload("res://game/player/player_core_local.tscn")
 var PlayerCoreRemote = preload("res://game/player/player_core_remote.tscn")
+var PlayerCoreLocalDebugUI = preload("res://game/player/player_core_local_debugui.tscn")
 
 func _ready():
 	hyperGateway = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGateway")
@@ -70,6 +72,8 @@ func _on_HyperGossip_event(type, data, from):
 		updatePlayer_direction(data, from)
 	elif type == EVENT_PLAYER_RESPAWNPLAYER:
 		updatePlayer_respawnPlayer(data, from)
+	elif type == EVENT_PLAYER_MAPCHANGE:
+		updatePlayer_mapchange(data, from)
 	
 func get_player_object(id):
 	if knownPlayers.has(id):
@@ -103,6 +107,12 @@ func updatePlayer_wantstojump(data, id):
 	remotePlayer.translationUpdate( Vector3(data.translation.x, data.translation.y, data.translation.z) )
 	remotePlayer.directionUpdate( Vector3(data.direction.x, data.direction.y, data.direction.z) )
 	remotePlayer.playerWantsToJump = true
+	
+func updatePlayer_mapchange(data, id):
+	var newMapName = data.map.name
+	var hyperDebugUI = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperDebugUI")
+	hyperDebugUI.tryMapChange(newMapName, false)
+	pass
 	
 func updatePlayer_respawnPlayer(data, id):
 	var remotePlayer = get_player_object(id)
