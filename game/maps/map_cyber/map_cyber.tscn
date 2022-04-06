@@ -4,17 +4,23 @@
 [ext_resource path="res://assets/maps/maps_cyber/level0.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game/map_decorations/spawnpad.tscn" type="PackedScene" id=3]
 
-[node name="cyber" type="Node"]
+[node name="map_cyber1" type="Node"]
 
 [node name="Spatial" parent="." instance=ExtResource( 2 )]
 
 [node name="MoonLight" parent="Spatial/WorldEnvironment" index="1"]
 transform = Transform( 0, -0.713361, -0.700797, 0.444247, -0.627847, 0.639103, -0.895904, -0.311327, 0.316909, -0.700797, 0.639103, 0.316909 )
 
-[node name="Node" type="Node" parent="."]
+[node name="PlayerSpawnNodes" type="Node" parent="."]
 
-[node name="Spawnpad" parent="Node" instance=ExtResource( 3 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -7.68755, 0.108327, 0 )
+[node name="Spawnpad2" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -7.68755, 0.108327, 0 )
+
+[node name="Spawnpad" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15.6924, -12.4585, -13.8369 )
+
+[node name="Spawnpad3" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15.6924, -12.4585, 11.8586 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
