@@ -1,19 +1,23 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [sub_resource type="ParticlesMaterial" id=1]
 lifetime_randomness = 1.0
 emission_shape = 5
 emission_ring_radius = 4.0
 emission_ring_inner_radius = 4.0
-emission_ring_height = 1.0
+emission_ring_height = 1.52
 emission_ring_axis = Vector3( 0, 1, 0 )
 direction = Vector3( 0, 0, 0 )
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 10.0
-scale = 0.2
-hue_variation = 0.48
+gravity = Vector3( 0, 1, 0 )
+initial_velocity = 2.0
+hue_variation = -1.0
 
-[sub_resource type="SphereMesh" id=2]
+[sub_resource type="SpatialMaterial" id=2]
+vertex_color_use_as_albedo = true
+params_billboard_mode = 1
+
+[sub_resource type="QuadMesh" id=3]
+material = SubResource( 2 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -24,4 +28,4 @@ lifetime = 4.0
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 1 )
-draw_pass_1 = SubResource( 2 )
+draw_pass_1 = SubResource( 3 )

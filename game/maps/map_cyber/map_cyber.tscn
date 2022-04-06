@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/sounds/ambience/ear_wind.mp3" type="AudioStream" id=1]
+[ext_resource path="res://assets/maps/maps_cyber/level0.tscn" type="PackedScene" id=2]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Spatial" parent="." instance=ExtResource( 2 )]
+
+[node name="MoonLight" parent="Spatial/WorldEnvironment" index="1"]
+transform = Transform( 0, -0.713361, -0.700797, 0.444247, -0.627847, 0.639103, -0.895904, -0.311327, 0.316909, -0.700797, 0.639103, 0.316909 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+
+[editable path="Spatial"]
