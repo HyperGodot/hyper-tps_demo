@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/maps/map_test/asset_map_test.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game/map_decorations/spawnpad.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/maps/map_core.gd" type="Script" id=2]
+[ext_resource path="res://game/map_decorations/spawnpad_nocollision.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ProceduralSky" id=34]
 sky_top_color = Color( 0.4, 0.741176, 0.92549, 1 )
@@ -41,6 +42,7 @@ glow_hdr_luminance_cap = 11.62
 glow_hdr_scale = 1.16
 
 [node name="map_test" type="Node"]
+script = ExtResource( 2 )
 
 [node name="asset_map_test" parent="." instance=ExtResource( 1 )]
 
@@ -56,10 +58,16 @@ directional_shadow_depth_range = 1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 9 )
 
-[node name="PlayerSpawnpads" type="Node" parent="."]
+[node name="PlayerSpawnNodes" type="Node" parent="."]
 
-[node name="Spawnpad" parent="PlayerSpawnpads" instance=ExtResource( 2 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.673473, 2.44622, -3.56049 )
+[node name="Spawnpad_1" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.673, 2.446, -3.56 )
 
-[node name="Spawnpad2" parent="PlayerSpawnpads" instance=ExtResource( 2 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.23804, -3.87188, -77.1369 )
+[node name="Spawnpad_2" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.238, -3.872, -77.137 )
+
+[node name="Spawnpad_3" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -13.621, -3.482, 9.865 )
+
+[node name="Spawnpad_4" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -21.4394, -3.87374, -17.1152 )
