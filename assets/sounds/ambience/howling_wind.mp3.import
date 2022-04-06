@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/howling_wind.mp3-2494a7627feaa3328f99dc952817e727.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/ambience/howling_wind.mp3"
+dest_files=[ "res://.import/howling_wind.mp3-2494a7627feaa3328f99dc952817e727.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

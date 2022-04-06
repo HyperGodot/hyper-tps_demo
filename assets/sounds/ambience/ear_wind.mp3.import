@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ear_wind.mp3-70c7b0062dcbac4a2bb97a0565616e62.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/ambience/ear_wind.mp3"
+dest_files=[ "res://.import/ear_wind.mp3-70c7b0062dcbac4a2bb97a0565616e62.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
