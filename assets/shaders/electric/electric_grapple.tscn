@@ -7,21 +7,21 @@
 [node name="Spatial" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 3.28814, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.03361 )
+transform = Transform( 4.55581, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.03361 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="."]
-transform = Transform( -3.28814, 0, -8.74228e-08, 0, 1, 0, 2.87458e-07, 0, -1, 0, 0, -0.966387 )
+transform = Transform( -4.55581, 0, -1.21127e-07, 0, 1, 0, 2.87458e-07, 0, -1, 0, 0, -0.966387 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
 
 [node name="MeshInstance4" type="MeshInstance" parent="."]
-transform = Transform( 3.28814, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0.0336129 )
+transform = Transform( 4.55581, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0.0336129 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
 
 [node name="MeshInstance5" type="MeshInstance" parent="."]
-transform = Transform( -3.28814, 0, -8.74228e-08, 2.87458e-07, -4.37114e-08, -1, -1.25652e-14, -1, 4.37114e-08, 0, -1, 0.033613 )
+transform = Transform( -4.55581, 0, -1.21127e-07, 2.87458e-07, -4.37114e-08, -1, -1.25652e-14, -1, 4.37114e-08, 0, -1, 0.033613 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
