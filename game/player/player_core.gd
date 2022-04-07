@@ -115,7 +115,6 @@ func grapplingHook_Process():
 	var length : float = grapplingHook_UpdatePlayerVelocityAndReturnHookLength()
 	grapplingHook_UpdateVisualLine(length)
 	grapplingHook_UpdateVisualPoint()
-	pass
 	
 func grapplingHook_CheckActivation():
 	# Activate hook
@@ -128,7 +127,6 @@ func grapplingHook_CheckActivation():
 	elif( Input.is_action_just_released("shoot") ):
 		grapplingHook_IsHooked = false
 		grappleVisualLine.hide()
-	pass
 	
 func grapplingHook_UpdateVisualPoint():
 	if grappleHookCast.is_colliding():
