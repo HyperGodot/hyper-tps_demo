@@ -21,11 +21,30 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 
 [node name="CameraPivot" type="Spatial" parent="CameraHead" index="0"]
 
-[node name="ClippedCamera" type="ClippedCamera" parent="CameraHead/CameraPivot" index="0"]
+[node name="GrappleHookCast" type="RayCast" parent="CameraHead/CameraPivot" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.333409, 0.0206239 )
+enabled = true
+cast_to = Vector3( 0, 0, -400 )
+collision_mask = 2
+debug_shape_custom_color = Color( 1, 0, 0, 1 )
+debug_shape_thickness = 5
+
+[node name="ClippedCamera" type="ClippedCamera" parent="CameraHead/CameraPivot" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5 )
 fov = 90.0
 
 [node name="PlayerDebugUI" parent="." index="7" instance=ExtResource( 5 )]
+
+[node name="GrapplingHook" type="Node" parent="." index="9"]
+
+[node name="GrappleVisualPoint" type="CSGSphere" parent="GrapplingHook" index="0"]
+
+[node name="LineHelper" type="Spatial" parent="GrapplingHook" index="1"]
+
+[node name="GrappleVisualLine" type="CSGCylinder" parent="GrapplingHook/LineHelper" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+radius = 0.015
+height = 28.564
 
 [connection signal="player_jump" from="Input" to="." method="_on_Input_player_jump"]
 [connection signal="player_mousemotion_event" from="Input" to="." method="_on_Input_player_mousemotion_event"]

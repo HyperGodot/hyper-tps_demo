@@ -33,7 +33,7 @@ func _ready():
 	peerListRequest.connect("request_completed", self, "_on_peer_list")
 	peerListRequest.use_threads = true
 
-	for i in range(pool_size):
+	for _i in range(pool_size):
 		var broadcastRequest = HyperRequest.new()
 		broadcastRequest.use_threads = true
 		add_child(broadcastRequest)

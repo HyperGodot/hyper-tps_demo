@@ -24,6 +24,16 @@ onready var clippedCameraHead : Spatial = $CameraHead
 onready var clippedCameraPivot : Spatial = $CameraHead/CameraPivot
 # onready var csgMesh : CSGMesh = $Head/CamPivot/ClippedCamera/GrappleCast/CSGMesh
 
+onready var meshCollisionShape : CollisionShape = $CollisionShape
+
+onready var grappleHookCast : RayCast = $CameraHead/CameraPivot/GrappleHookCast
+onready var grappleVisualPoint : CSGSphere = $GrapplingHook/GrappleVisualPoint
+onready var grappleLineHelper : Spatial = $GrapplingHook/LineHelper
+onready var grappleVisualLine : CSGCylinder = $GrapplingHook/LineHelper/GrappleVisualLine
+
+var grapplingHook_GrapplePosition : Vector3 = Vector3.ZERO
+var grapplingHook_IsHooked : bool = false
+
 # TODO : Make Debug UI dynamic and not hardcoded in the core Hyper scripts.
 #onready var hyperdebugui : Control = $HyperGodotDebugUI
 #onready var hyperdebugui_gateway_startstop_button : Button = $HyperGodotDebugUI/HypercoreDebugPanel/HypercoreDebugContainer/GatewayStartStopButton
@@ -61,6 +71,14 @@ func _ready():
 	currentSpawnLocation = getSpawnLocation()
 	playerWantsToRespawn = true
 	
+	# Grappling Hook Setup
+	grappleHookCast.add_exception(meshCollisionShape)
+	grappleHookCast.add_exception(clippedCameraPivot)
+	grappleHookCast.add_exception(clippedCameraHead)
+	grappleHookCast.add_exception(meshNode)
+	grappleHookCast.add_exception(grappleVisualPoint)
+	# grappleHookCast.set_collision_mask_bit(2, true)
+	
 	# Get HyperGossip
 	hyperGossip = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGossip")
 	
@@ -92,6 +110,64 @@ func _process(_delta):
 	meshSkel.set_bone_pose(bone, bonePos)
 	#meshSkel.add_child(boneAttachment)
 	
+func grapplingHook_Process():
+	grapplingHook_CheckActivation()
+	var length : float = grapplingHook_UpdatePlayerVelocityAndReturnHookLength()
+	grapplingHook_UpdateVisualLine(length)
+	grapplingHook_UpdateVisualPoint()
+	pass
+	
+func grapplingHook_CheckActivation():
+	# Activate hook
+	if( Input.is_action_just_pressed("shoot") and grappleHookCast.is_colliding() ):
+		grapplingHook_IsHooked = true
+		grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
+		grappleVisualLine.show()
+		$Model/Sound_Shoot.play()
+	# Stop grappling
+	elif( Input.is_action_just_released("shoot") ):
+		grapplingHook_IsHooked = false
+		grappleVisualLine.hide()
+	pass
+	
+func grapplingHook_UpdateVisualPoint():
+	if grappleHookCast.is_colliding():
+		grappleVisualPoint.visible = true
+		grappleVisualPoint.translation = grappleHookCast.get_collision_point()
+	else:
+		grappleVisualPoint.visible = false
+		
+func grapplingHook_UpdateVisualLine(length : float):
+	grappleLineHelper.look_at(grapplingHook_GrapplePosition, Vector3.UP)
+	grappleVisualLine.height = length
+	grappleVisualLine.translation.z = length / -2
+		
+func grapplingHook_UpdatePlayerVelocityAndReturnHookLength() -> float:
+	var grapple_speed : float = 0.5
+	var rest_length : float = 1
+	var max_grapple_speed : float = 2.75
+	
+	var player2hook := grapplingHook_GrapplePosition - translation # vector from player to hook
+	var length := player2hook.length()
+	if(grapplingHook_IsHooked):
+		# if we more than 4 away from line, don't dampen speed as much
+		if(length > 4):
+			kinematicVelocity *= .999
+		# Otherwise dampen speed more
+		else:
+			kinematicVelocity *= .9
+		
+		# Hook's law equation
+		var force := grapple_speed * (length - rest_length)
+		
+		# Clamp force to be less than max_grapple_speed
+		if abs(force) > max_grapple_speed:
+			force = max_grapple_speed
+		
+		# Preserve direction, but scale by force
+		kinematicVelocity += player2hook.normalized() * force
+	
+	return length
 
 var jumpingUp : bool
 func _physics_process(_delta):
@@ -129,6 +205,9 @@ func _physics_process(_delta):
 	# Calculate Running Animation
 	currentSpeed = ( (abs(kinematicVelocity.x) + abs(kinematicVelocity.z) - 7) / 7)
 	$AnimationTree.set("parameters/iwr_blend/blend_amount", currentSpeed)
+	
+	# Update Grappling Hook
+	grapplingHook_Process()
 		
 	
 	#	self.linear_velocity.y += jumpHeight
@@ -277,11 +356,6 @@ func _on_Player_body_exited(body : Node) -> void:
 	if(collisions.has(body.get_instance_id()) ):
 		collisions.erase(body.get_instance_id())
 		$CollisionUI.onRemovedCollision(body, collisions)
-
-
-func _on_level_test_new_player(id):
-	# hyperdebugui_gossipid_list.add_item(id, null, false)
-	pass
 
 func _on_MoveNetworkTimer_timeout():
 	moveNetworkUpdateAllowed = true

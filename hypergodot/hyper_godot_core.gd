@@ -58,7 +58,7 @@ func _on_LocalSnapshotTimer_timeout():
 		
 		hyperGossip.broadcast_event(EVENT_PLAYER_SNAPSHOT, snapShotData)
 		
-func _on_HyperGossip_listening(extension_name):
+func _on_HyperGossip_listening(_extension_name):
 	var snapShotData : Dictionary = getPlayerLocalSnapshotData()
 	hyperGossip.broadcast_event(EVENT_PLAYER_SNAPSHOT, snapShotData)
 
@@ -108,7 +108,7 @@ func updatePlayer_wantstojump(data, id):
 	remotePlayer.directionUpdate( Vector3(data.direction.x, data.direction.y, data.direction.z) )
 	remotePlayer.playerWantsToJump = true
 	
-func updatePlayer_mapchange(data, id):
+func updatePlayer_mapchange(data, _id):
 	var newMapName = data.map.name
 	# TODO : Do this elsewhere
 	var playerDebugUI = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal").get_node("PlayerDebugUI")
