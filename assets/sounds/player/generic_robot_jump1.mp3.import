@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/generic_robot_jump1.mp3-fbeda63a8ac36d1712ec2e0827efa08f.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/player/generic_robot_jump1.mp3"
+dest_files=[ "res://.import/generic_robot_jump1.mp3-fbeda63a8ac36d1712ec2e0827efa08f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

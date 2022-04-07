@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/fire_grapplinghook1.mp3-3ef4e7717a0d0f19152a9205a299b571.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/player/fire_grapplinghook1.mp3"
+dest_files=[ "res://.import/fire_grapplinghook1.mp3-3ef4e7717a0d0f19152a9205a299b571.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
