@@ -104,7 +104,8 @@ func _process(_delta):
 	
 func grapplingHook_Process():
 	# TODO : BIG Hack to prevent running on remote players
-	if(self.name == "PlayerCoreLocal"):
+	var _name = self.name
+	if(self.name == "PlayerLocal"):
 		grapplingHook_CheckActivation()
 		var length : float = grapplingHook_UpdatePlayerVelocityAndReturnHookLength()
 		grapplingHook_UpdateVisualLine(length)
