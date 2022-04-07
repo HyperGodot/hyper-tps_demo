@@ -103,10 +103,12 @@ func _process(_delta):
 	#meshSkel.add_child(boneAttachment)
 	
 func grapplingHook_Process():
-	grapplingHook_CheckActivation()
-	var length : float = grapplingHook_UpdatePlayerVelocityAndReturnHookLength()
-	grapplingHook_UpdateVisualLine(length)
-	grapplingHook_UpdateVisualPoint()
+	# TODO : BIG Hack to prevent running on remote players
+	if(self.name == "PlayerCoreLocal"):
+		grapplingHook_CheckActivation()
+		var length : float = grapplingHook_UpdatePlayerVelocityAndReturnHookLength()
+		grapplingHook_UpdateVisualLine(length)
+		grapplingHook_UpdateVisualPoint()
 	
 func grapplingHook_CheckActivation():
 	# Activate hook
@@ -128,9 +130,10 @@ func grapplingHook_UpdateVisualPoint():
 		grappleVisualPoint.visible = false
 		
 func grapplingHook_UpdateVisualLine(length : float):
-	grappleLineHelper.look_at(grapplingHook_GrapplePosition, Vector3.UP)
-	grappleVisualLine.height = length
-	grappleVisualLine.translation.z = length / -2
+	pass
+	#grappleLineHelper.look_at(grapplingHook_GrapplePosition, Vector3.UP)
+	#grappleVisualLine.height = length
+	#grappleVisualLine.translation.z = length / -2
 		
 func grapplingHook_UpdatePlayerVelocityAndReturnHookLength() -> float:
 	var grapple_speed : float = 0.5
