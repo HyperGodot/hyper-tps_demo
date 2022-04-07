@@ -110,9 +110,9 @@ func updatePlayer_wantstojump(data, id):
 	
 func updatePlayer_mapchange(data, id):
 	var newMapName = data.map.name
-	var hyperDebugUI = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperDebugUI")
-	hyperDebugUI.tryMapChange(newMapName, false)
-	pass
+	# TODO : Do this elsewhere
+	var playerDebugUI = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal").get_node("PlayerDebugUI")
+	playerDebugUI.tryMapChange(newMapName, false)
 	
 func updatePlayer_respawnPlayer(data, id):
 	var remotePlayer = get_player_object(id)
