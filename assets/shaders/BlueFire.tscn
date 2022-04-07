@@ -37,7 +37,7 @@ color_ramp = ExtResource( 4 )
 size = Vector2( 0.5, 0.5 )
 
 [node name="BlueFire" type="Particles"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78327, 1.26708, 0 )
+transform = Transform( 0.996392, 0, 0, 0, 0.996392, 0, 0, 0, 0.996392, -1.78327, 1.26708, 0 )
 material_override = SubResource( 1 )
 cast_shadow = 0
 amount = 20
