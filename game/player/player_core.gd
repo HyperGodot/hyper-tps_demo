@@ -71,14 +71,6 @@ func _ready():
 	currentSpawnLocation = getSpawnLocation()
 	playerWantsToRespawn = true
 	
-	# Grappling Hook Setup
-	grappleHookCast.add_exception(meshCollisionShape)
-	grappleHookCast.add_exception(clippedCameraPivot)
-	grappleHookCast.add_exception(clippedCameraHead)
-	grappleHookCast.add_exception(meshNode)
-	grappleHookCast.add_exception(grappleVisualPoint)
-	# grappleHookCast.set_collision_mask_bit(2, true)
-	
 	# Get HyperGossip
 	hyperGossip = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGossip")
 	
