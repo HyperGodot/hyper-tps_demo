@@ -104,12 +104,12 @@ func _process(_delta):
 	#meshSkel.add_child(boneAttachment)
 	
 func grapplingHook_Process():
+	grapplingHook_CheckActivation()
+	var length : float = grapplingHook_UpdatePlayerVelocityAndReturnHookLength()
+	grapplingHook_UpdateVisualLine(length)
 	# TODO : BIG Hack to prevent running on remote players
 	var _name = self.name
 	if(self.name == "PlayerLocal"):
-		grapplingHook_CheckActivation()
-		var length : float = grapplingHook_UpdatePlayerVelocityAndReturnHookLength()
-		grapplingHook_UpdateVisualLine(length)
 		grapplingHook_UpdateVisualPoint()
 	
 func grapplingHook_CheckActivation():
@@ -119,12 +119,13 @@ func grapplingHook_CheckActivation():
 		grapplingHook_IsHooked = true
 		grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
 		grappleVisualLine.show()
-		$Model/Sound_Shoot.play()
+		$Model/Sound_Shoot_GrapplingHook.play()
 	elif(playerWantsToReleaseGrapplingHook):
 		# Stop grappling
 		grapplingHook_IsHooked = false
 		playerWantsToReleaseGrapplingHook = false
 		grappleVisualLine.hide()
+		$Model/Sound_Release_GrapplingHook.play()
 	
 func grapplingHook_UpdateVisualPoint():
 	if grappleHookCast.is_colliding():
@@ -248,7 +249,6 @@ func respawnPlayer():
 	grapplingHook_IsHooked = false
 	playerWantsToShootGrapplingHook = false
 	playerWantsToReleaseGrapplingHook = false
-	grappleVisualLine.hide()
 	self.translation = currentSpawnLocation
 
 func playerCanJump() -> bool:
