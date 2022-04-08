@@ -7,6 +7,8 @@ const EVENT_PLAYER_SNAPSHOT = 'player_snapshot'
 const EVENT_PLAYER_WANTSTOJUMP = 'player_wantstojump'
 const EVENT_PLAYER_DIRECTION = 'player_direction'
 const EVENT_PLAYER_RESPAWNPLAYER = 'player_respawnplayer'
+const EVENT_PLAYER_SHOOT_GRAPPLINGHOOK = 'player_shoot_grapplinghook'
+const EVENT_PLAYER_RELEASE_GRAPPLINGHOOK = 'player_release_grapplinghook'
 
 export var mouseSensitivity : float = 0.3
 export var movementSpeed : float = 14
@@ -33,6 +35,8 @@ onready var grappleVisualLine : CSGCylinder = $GrapplingHook/LineHelper/GrappleV
 
 var grapplingHook_GrapplePosition : Vector3 = Vector3.ZERO
 var grapplingHook_IsHooked : bool = false
+var playerWantsToShootGrapplingHook : bool = false
+var playerWantsToReleaseGrapplingHook : bool = false
 
 # TODO : Make Debug UI dynamic and not hardcoded in the core Hyper scripts.
 #onready var hyperdebugui : Control = $HyperGodotDebugUI
@@ -78,9 +82,6 @@ func snapShotUpdate(_translation : Vector3, _meshDirection : Vector3, _lookingDi
 	self.translation = _translation
 	self.meshNode.rotation = _meshDirection
 	self.currentDirection = _lookingDirection
-	
-func translationUpdate(_translation : Vector3):
-	self.translation = _translation
 
 func directionUpdate(_direction : Vector3):
 	self.currentDirection = _direction
@@ -113,16 +114,17 @@ func grapplingHook_Process():
 	
 func grapplingHook_CheckActivation():
 	# Activate hook
-	if( Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE ):
-		if( Input.is_action_just_pressed("shoot") and grappleHookCast.is_colliding() ):
-			grapplingHook_IsHooked = true
-			grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
-			grappleVisualLine.show()
-			$Model/Sound_Shoot.play()
+	if(playerWantsToShootGrapplingHook):
+		playerWantsToShootGrapplingHook = false
+		grapplingHook_IsHooked = true
+		grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
+		grappleVisualLine.show()
+		$Model/Sound_Shoot.play()
+	elif(playerWantsToReleaseGrapplingHook):
 		# Stop grappling
-		elif( Input.is_action_just_released("shoot") ):
-			grapplingHook_IsHooked = false
-			grappleVisualLine.hide()
+		grapplingHook_IsHooked = false
+		playerWantsToReleaseGrapplingHook = false
+		grappleVisualLine.hide()
 	
 func grapplingHook_UpdateVisualPoint():
 	if grappleHookCast.is_colliding():
@@ -243,6 +245,10 @@ func _physics_process(_delta):
 	
 func respawnPlayer():
 	kinematicVelocity = Vector3.ZERO
+	grapplingHook_IsHooked = false
+	playerWantsToShootGrapplingHook = false
+	playerWantsToReleaseGrapplingHook = false
+	grappleVisualLine.hide()
 	self.translation = currentSpawnLocation
 
 func playerCanJump() -> bool:
@@ -280,19 +286,7 @@ func _on_Input_player_move(direction : Vector3):
 	currentDirection = direction
 	
 	if(moveNetworkUpdateAllowed):
-		var data : Dictionary = {
-		"direction": {
-			"x": currentDirection.x,
-			"y": currentDirection.y,
-			"z": currentDirection.z
-			},
-		"translation": {
-			"x": self.translation.x,
-			"y": self.translation.y,
-			"z": self.translation.z
-			}
-		}
-		hyperGossip.broadcast_event(EVENT_PLAYER_DIRECTION, data)
+		hyperGossip.broadcast_event(EVENT_PLAYER_DIRECTION, getPlayerLocalCoreNetworkData() )
 		moveNetworkUpdateAllowed = false
 	#var h_rot = clippedCameraHead.global_transform.basis.get_euler().y
 	# Adjust Current Direction based on Mouse Direction
@@ -323,11 +317,18 @@ func _on_Input_player_change_physics_mode() -> void:
 
 func _on_Input_player_jump():
 	playerWantsToJump = true
-	hyperGossip.broadcast_event(EVENT_PLAYER_WANTSTOJUMP, getPlayerLocalPositionData() )
+	hyperGossip.broadcast_event(EVENT_PLAYER_WANTSTOJUMP, getPlayerLocalCoreNetworkData() )
 	
-
-func _on_Input_player_shoot():
-	pass
+func _on_Input_player_shoot_grapplinghook():
+	if( Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE ):
+		if( grappleHookCast.is_colliding() ):
+			playerWantsToShootGrapplingHook = true
+			hyperGossip.broadcast_event(EVENT_PLAYER_SHOOT_GRAPPLINGHOOK, getPlayerLocalCoreNetworkData() )
+			
+func _on_Input_player_release_grapplinghook():
+	if( Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE ):
+		playerWantsToReleaseGrapplingHook = true
+		hyperGossip.broadcast_event(EVENT_PLAYER_RELEASE_GRAPPLINGHOOK, getPlayerLocalCoreNetworkData() )
 	
 	
 func _checkPlayerCanJump(newBody : PhysicsBody, addedBody : bool) -> void:
@@ -359,7 +360,7 @@ func _on_Player_body_exited(body : Node) -> void:
 func _on_MoveNetworkTimer_timeout():
 	moveNetworkUpdateAllowed = true
 	
-func getPlayerLocalPositionData() -> Dictionary:
+func getPlayerLocalCoreNetworkData() -> Dictionary:
 	# TODO : Fix finding the local player, and get it out of player_core into player_core_local
 	var localPlayer : KinematicBody = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal")
 	var translation : Vector3 = localPlayer.translation
@@ -376,7 +377,17 @@ func getPlayerLocalPositionData() -> Dictionary:
 		"x": direction.x,
 		"y": direction.y,
 		"z": direction.z
+		},
+	"velocity": {
+		"x": kinematicVelocity.x,
+		"y": kinematicVelocity.y,
+		"z": kinematicVelocity.z
 		}
 	}
 
 	return data
+
+func playerCoreNetworkDataUpdate(data : Dictionary):
+	self.translation = Vector3(data.translation.x, data.translation.y, data.translation.z)
+	self.currentDirection = Vector3(data.direction.x, data.direction.y, data.direction.z)
+	self.kinematicVelocity = Vector3(data.velocity.x, data.velocity.y, data.velocity.z)

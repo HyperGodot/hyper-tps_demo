@@ -53,4 +53,6 @@ height = 28.564
 [connection signal="player_jump" from="Input" to="." method="_on_Input_player_jump"]
 [connection signal="player_mousemotion_event" from="Input" to="." method="_on_Input_player_mousemotion_event"]
 [connection signal="player_move" from="Input" to="." method="_on_Input_player_move"]
+[connection signal="player_release_grapplinghook" from="Input" to="." method="_on_Input_player_release_grapplinghook"]
 [connection signal="player_restore_origin" from="Input" to="." method="_on_Input_player_restore_origin"]
+[connection signal="player_shoot_grapplinghook" from="Input" to="." method="_on_Input_player_shoot_grapplinghook"]

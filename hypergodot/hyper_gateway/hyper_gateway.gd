@@ -87,6 +87,8 @@ func setupGateway():
 	if !persist: args.append('--no-persist')
 	if writable: args.append('--writable')
 	
+	args.append("--silent")
+	
 	if port != DEFAULT_PORT:
 		args.append('--port')
 		args.append(String(port))
