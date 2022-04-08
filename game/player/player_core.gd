@@ -30,8 +30,9 @@ onready var meshCollisionShape : CollisionShape = $CollisionShape
 
 onready var grappleHookCast : RayCast = $CameraHead/CameraPivot/GrappleHookCast
 onready var grappleVisualPoint : CSGSphere = $GrapplingHook/GrappleVisualPoint
-onready var grappleLineHelper : Spatial = $GrapplingHook/LineHelper
-onready var grappleVisualLine : CSGCylinder = $GrapplingHook/LineHelper/GrappleVisualLine
+onready var grappleLineHelper : Spatial = $Model/LineHelper
+# onready var grappleVisualLine : CSGCylinder = $GrapplingHook/LineHelper/GrappleVisualLine
+onready var grappleVisualLine : CSGCylinder = $Model/LineHelper/GrappleVisualLine
 
 var grapplingHook_GrapplePosition : Vector3 = Vector3.ZERO
 var grapplingHook_IsHooked : bool = false
@@ -94,7 +95,7 @@ func getSpawnLocation() -> Vector3:
 func _process(_delta):
 	if(currentDirection != Vector3.ZERO):
 		meshNode.rotation.y = lerp_angle(meshNode.rotation.y, atan2(-currentDirection.x, -currentDirection.z), turn_velocity * _delta)
-	pass
+	return
 	var meshSkel : Skeleton
 	meshSkel = meshNode.find_node("Skeleton", true)
 	var bone = meshSkel.find_bone("DEF-hand.R")
@@ -135,10 +136,10 @@ func grapplingHook_UpdateVisualPoint():
 		grappleVisualPoint.visible = false
 		
 func grapplingHook_UpdateVisualLine(length : float):
-	pass
-	#grappleLineHelper.look_at(grapplingHook_GrapplePosition, Vector3.UP)
-	#grappleVisualLine.height = length
-	#grappleVisualLine.translation.z = length / -2
+	if(grapplingHook_IsHooked):
+		grappleLineHelper.look_at(grapplingHook_GrapplePosition, Vector3.UP)
+		grappleVisualLine.height = length
+		grappleVisualLine.translation.z = length / -2
 		
 func grapplingHook_UpdatePlayerVelocityAndReturnHookLength() -> float:
 	var grapple_speed : float = 0.5

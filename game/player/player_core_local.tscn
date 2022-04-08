@@ -8,7 +8,9 @@
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 flags_no_depth_test = true
-albedo_color = Color( 0.0235294, 1, 0, 1 )
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+albedo_color = Color( 0.407843, 0, 0, 1 )
 
 [node name="PlayerCoreLocal" instance=ExtResource( 1 )]
 
@@ -27,7 +29,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 [node name="CameraPivot" type="Spatial" parent="CameraHead" index="0"]
 
 [node name="GrappleHookCast" type="RayCast" parent="CameraHead/CameraPivot" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.333409, 0.0206239 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.740826, 0.0206239 )
 enabled = true
 cast_to = Vector3( 0, 0, -400 )
 collision_mask = 2
@@ -42,6 +44,8 @@ fov = 90.0
 
 [node name="GrappleVisualPoint" type="CSGSphere" parent="GrapplingHook" index="0"]
 radius = 0.25
+radial_segments = 22
+rings = 22
 material = SubResource( 1 )
 
 [connection signal="player_jump" from="Input" to="." method="_on_Input_player_jump"]
