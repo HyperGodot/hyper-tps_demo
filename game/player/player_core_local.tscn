@@ -8,6 +8,7 @@
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 flags_no_depth_test = true
+flags_fixed_size = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 albedo_color = Color( 0.407843, 0, 0, 1 )
@@ -43,7 +44,8 @@ fov = 90.0
 [node name="PlayerDebugUI" parent="." index="7" instance=ExtResource( 5 )]
 
 [node name="GrappleVisualPoint" type="CSGSphere" parent="GrapplingHook" index="0"]
-radius = 0.25
+cast_shadow = 0
+radius = 0.025
 radial_segments = 22
 rings = 22
 material = SubResource( 1 )

@@ -65,6 +65,8 @@ var kinematicVelocity : Vector3 = Vector3.ZERO
 
 var collisions : Dictionary = {}
 
+var Particles_Land = preload("res://game/player/particles.tscn")
+
 func _ready():
 	# Get Current Map
 	currentMap = get_tree().get_current_scene().get_node("CurrentMap").get_child(0)
@@ -139,7 +141,7 @@ func grapplingHook_UpdateVisualLine(length : float):
 	if(grapplingHook_IsHooked):
 		grappleLineHelper.look_at(grapplingHook_GrapplePosition, Vector3.UP)
 		grappleVisualLine.height = length
-		grappleVisualLine.translation.z = length / -2
+		grappleVisualLine.translation.z = length / -1.80
 		
 func grapplingHook_UpdatePlayerVelocityAndReturnHookLength() -> float:
 	var grapple_speed : float = 0.5
@@ -192,7 +194,15 @@ func _physics_process(_delta):
 				kinematicVelocity.y = jumpHeight
 				jumpingUp = true
 				$Model/Sound_Jump.play()
-	kinematicVelocity = move_and_slide(kinematicVelocity, Vector3.UP)
+	# kinematicVelocity = move_and_slide(kinematicVelocity, Vector3.UP)
+	var bPrevOnFloor = is_on_floor()
+	y_cache = kinematicVelocity.y
+	kinematicVelocity = move_and_slide(kinematicVelocity, Vector3.UP, false, 4, 10.0, true)
+	
+	if( !bPrevOnFloor and is_on_floor() and y_cache < -17.0):
+		var particles = Particles_Land.instance()
+		$Model.add_child(particles)
+		$Model/Sound_Land.play()
 	
 	# Calculate Potential Jumping Animation
 	if( !is_on_floor() ):

@@ -71,3 +71,6 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -13.621, -3.482, 9.865 )
 
 [node name="Spawnpad_4" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -21.4394, -3.87374, -17.1152 )
+
+[node name="Spawnpad_5" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -9.88113, 8.96284, -17.1152 )
