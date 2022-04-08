@@ -117,7 +117,7 @@ func grapplingHook_CheckActivation():
 	if(playerWantsToShootGrapplingHook):
 		playerWantsToShootGrapplingHook = false
 		grapplingHook_IsHooked = true
-		grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
+		# grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
 		grappleVisualLine.show()
 		$Model/Sound_Shoot_GrapplingHook.play()
 	elif(playerWantsToReleaseGrapplingHook):
