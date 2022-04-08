@@ -113,15 +113,16 @@ func grapplingHook_Process():
 	
 func grapplingHook_CheckActivation():
 	# Activate hook
-	if( Input.is_action_just_pressed("shoot") and grappleHookCast.is_colliding() ):
-		grapplingHook_IsHooked = true
-		grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
-		grappleVisualLine.show()
-		$Model/Sound_Shoot.play()
-	# Stop grappling
-	elif( Input.is_action_just_released("shoot") ):
-		grapplingHook_IsHooked = false
-		grappleVisualLine.hide()
+	if( Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE ):
+		if( Input.is_action_just_pressed("shoot") and grappleHookCast.is_colliding() ):
+			grapplingHook_IsHooked = true
+			grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
+			grappleVisualLine.show()
+			$Model/Sound_Shoot.play()
+		# Stop grappling
+		elif( Input.is_action_just_released("shoot") ):
+			grapplingHook_IsHooked = false
+			grappleVisualLine.hide()
 	
 func grapplingHook_UpdateVisualPoint():
 	if grappleHookCast.is_colliding():
@@ -175,14 +176,18 @@ func _physics_process(_delta):
 	var y_cache : float = kinematicVelocity.y
 	kinematicVelocity = kinematicVelocity.linear_interpolate(currentDirection * movementSpeed, movementAcceleration * _delta)
 	kinematicVelocity.y = y_cache
+	
 	# Vertical velocity
-	kinematicVelocity.y -= fallAcceleration * _delta
-	if(playerWantsToJump):
-		playerWantsToJump = false
-		if( playerCanJump() ):
-			kinematicVelocity.y = jumpHeight
-			jumpingUp = true
-			$Model/Sound_Jump.play()
+	if(!grapplingHook_IsHooked):
+		# Apply Gravity
+		kinematicVelocity.y -= fallAcceleration * _delta
+		# Check for a Jump
+		if(playerWantsToJump):
+			playerWantsToJump = false
+			if( playerCanJump() ):
+				kinematicVelocity.y = jumpHeight
+				jumpingUp = true
+				$Model/Sound_Jump.play()
 	kinematicVelocity = move_and_slide(kinematicVelocity, Vector3.UP)
 	
 	# Calculate Potential Jumping Animation

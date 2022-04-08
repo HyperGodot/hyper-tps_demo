@@ -15,7 +15,8 @@ func getSpawnLocation() -> Vector3:
 	return spawnNode.translation
 
 func addGrapplingHookCollisionMaskToMap():
-	var currentMap : Node = get_tree().get_current_scene().get_node("CurrentMap").get_child(0)
+	var _name = self.name
+	var currentMap : Node = get_tree().get_current_scene().get_node("CurrentMap").find_node(_name, true, false)
 	var assetMap : Spatial = currentMap.find_node("asset_" + currentMap.name)
 	checkAndSetChildrenGrapplingHookMask(assetMap, 0)
 				

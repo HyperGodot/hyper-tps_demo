@@ -57,13 +57,16 @@ func physicsModeToString() -> String:
 		return "Unknown"
 
 func _on_map_test_button_up():
+	$Panel2/MarginContainer/GridContainer/map_test.release_focus()
 	tryMapChange("map_test", true)
 
 
 func _on_map_cyber_button_up():
+	$Panel2/MarginContainer/GridContainer/map_cyber.release_focus()
 	tryMapChange("map_cyber", true)
 	
 func _on_map_cyber1_button_up():
+	$Panel2/MarginContainer/GridContainer/map_cyber1.release_focus()
 	tryMapChange("map_cyber1", true)
 	
 func tryMapChange(mapChangeName : String, sendGossip : bool):

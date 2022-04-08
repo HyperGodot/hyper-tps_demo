@@ -31,6 +31,7 @@ func updateGatewayStatus() -> void:
 
 
 func _on_GatewayStartStopButton_button_up() -> void:
+	gatewayStartStopButton.release_focus()
 	if(!hyperGateway):
 		# TODO : Make this find a potential HyperGateway node based on classtype, and not assuming scene root node name is Spatial.
 		hyperGateway = get_node("../HyperGateway")
