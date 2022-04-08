@@ -323,7 +323,8 @@ func _on_Input_player_shoot_grapplinghook():
 	if( Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE ):
 		if( grappleHookCast.is_colliding() ):
 			playerWantsToShootGrapplingHook = true
-			hyperGossip.broadcast_event(EVENT_PLAYER_SHOOT_GRAPPLINGHOOK, getPlayerLocalCoreNetworkData() )
+			grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
+			hyperGossip.broadcast_event(EVENT_PLAYER_SHOOT_GRAPPLINGHOOK, getPlayerLocalShootGrapplingHookData() )
 			
 func _on_Input_player_release_grapplinghook():
 	if( Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE ):
@@ -386,8 +387,45 @@ func getPlayerLocalCoreNetworkData() -> Dictionary:
 	}
 
 	return data
+	
+func getPlayerLocalShootGrapplingHookData() -> Dictionary:
+	# TODO : Fix finding the local player, and get it out of player_core into player_core_local
+	var localPlayer : KinematicBody = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal")
+	var translation : Vector3 = localPlayer.translation
+	var direction : Vector3 = localPlayer.currentDirection
+
+	var data : Dictionary = {
+	#"profile": profile,
+	"translation": {
+		"x": translation.x,
+		"y": translation.y,
+		"z": translation.z
+		},
+	"direction": {
+		"x": direction.x,
+		"y": direction.y,
+		"z": direction.z
+		},
+	"velocity": {
+		"x": kinematicVelocity.x,
+		"y": kinematicVelocity.y,
+		"z": kinematicVelocity.z
+		},
+	"grapple_position": {
+		"x": grapplingHook_GrapplePosition.x,
+		"y": grapplingHook_GrapplePosition.y,
+		"z": grapplingHook_GrapplePosition.z
+		}
+	}
+
+	return data
 
 func playerCoreNetworkDataUpdate(data : Dictionary):
 	self.translation = Vector3(data.translation.x, data.translation.y, data.translation.z)
 	self.currentDirection = Vector3(data.direction.x, data.direction.y, data.direction.z)
 	self.kinematicVelocity = Vector3(data.velocity.x, data.velocity.y, data.velocity.z)
+
+func playerCoreNetworkDataUpdate_Types(_translation : Vector3, _currentDirection : Vector3, _kinematicVelocity : Vector3):
+	self.translation = _translation
+	self.currentDirection = _currentDirection
+	self.kinematicVelocity = _kinematicVelocity
