@@ -29,7 +29,8 @@ onready var clippedCameraPivot : Spatial = $CameraHead/CameraPivot
 onready var meshCollisionShape : CollisionShape = $CollisionShape
 
 onready var grappleHookCast : RayCast = $CameraHead/CameraPivot/GrappleHookCast
-onready var grappleVisualPoint : CSGSphere = $GrapplingHook/GrappleVisualPoint
+#onready var grappleVisualPoint : CSGSphere = $GrapplingHook/GrappleVisualPoint
+onready var grappleVisualPoint : Sprite3D = $GrapplingHook/GrappleVisualPoint_2
 onready var grappleLineHelper : Spatial = $Model/LineHelper
 # onready var grappleVisualLine : CSGCylinder = $GrapplingHook/LineHelper/GrappleVisualLine
 onready var grappleVisualLine : CSGCylinder = $Model/LineHelper/GrappleVisualLine

@@ -1,4 +1,7 @@
-[gd_resource type="Animation" format=2]
+[gd_resource type="Animation" load_steps=3 format=2]
+
+[ext_resource path="res://assets/sounds/player/metal_footstep_1.wav" type="AudioStream" id=1]
+[ext_resource path="res://assets/sounds/player/metal_footstep_2.wav" type="AudioStream" id=2]
 
 [resource]
 resource_name = "sprint-loop"
@@ -529,3 +532,31 @@ tracks/74/loop_wrap = true
 tracks/74/imported = true
 tracks/74/enabled = true
 tracks/74/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.875, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
+tracks/75/type = "audio"
+tracks/75/path = NodePath("Sound_Metal_Footstep_1")
+tracks/75/interp = 1
+tracks/75/loop_wrap = true
+tracks/75/imported = false
+tracks/75/enabled = true
+tracks/75/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 1 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/76/type = "audio"
+tracks/76/path = NodePath("Sound_Metal_Footstep_2")
+tracks/76/interp = 1
+tracks/76/loop_wrap = true
+tracks/76/imported = false
+tracks/76/enabled = true
+tracks/76/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 0.4 )
+}
