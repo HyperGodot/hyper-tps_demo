@@ -90,7 +90,7 @@ func get_player_object(id):
 	
 	hyperDebugUI.addGossipIDToList(id)
 
-	add_child(remotePlayer)
+	get_tree().get_current_scene().get_node("Players").add_child(remotePlayer)
 
 	return remotePlayer
 	

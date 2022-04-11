@@ -115,6 +115,7 @@ anims/wall_run_r-loop = ExtResource( 22 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource( 5 )
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/Blend2/blend_amount = 0
 "parameters/Blend2 2/blend_amount" = 0
 "parameters/TimeScale 3/scale" = 1.0
