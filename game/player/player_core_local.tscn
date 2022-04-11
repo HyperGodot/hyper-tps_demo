@@ -20,9 +20,6 @@ transform = Transform( 1.53846, 0, 0, 0, 1.53846, 0, 0, 0, 1.53846, 0, 0, 0 )
 stream = ExtResource( 9 )
 attenuation_filter_cutoff_hz = 5000.0
 
-[node name="AnimationTree" parent="." index="3"]
-active = true
-
 [node name="Input" type="Node" parent="." index="4"]
 script = ExtResource( 2 )
 

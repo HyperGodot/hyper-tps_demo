@@ -125,7 +125,6 @@ func grapplingHook_CheckActivation():
 	if(playerWantsToShootGrapplingHook):
 		playerWantsToShootGrapplingHook = false
 		grapplingHook_IsHooked = true
-		# grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
 		grappleVisualLine.show()
 		$Model/Sound_Shoot_GrapplingHook_2.play()
 		grappleIKTarget.translation = grapplingHook_GrapplePosition
@@ -289,7 +288,7 @@ func respawnPlayer():
 	kinematicVelocity = Vector3.ZERO
 	grapplingHook_IsHooked = false
 	playerWantsToShootGrapplingHook = false
-	playerWantsToReleaseGrapplingHook = false
+	playerWantsToReleaseGrapplingHook = true
 	self.translation = currentSpawnLocation
 
 func playerCanJump() -> bool:
@@ -369,8 +368,9 @@ func _on_Input_player_shoot_grapplinghook():
 			
 func _on_Input_player_release_grapplinghook():
 	if( Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE ):
-		playerWantsToReleaseGrapplingHook = true
-		hyperGossip.broadcast_event(EVENT_PLAYER_RELEASE_GRAPPLINGHOOK, getPlayerLocalCoreNetworkData() )
+		if(grapplingHook_IsHooked):
+			playerWantsToReleaseGrapplingHook = true
+			hyperGossip.broadcast_event(EVENT_PLAYER_RELEASE_GRAPPLINGHOOK, getPlayerLocalCoreNetworkData() )
 	
 	
 func _checkPlayerCanJump(newBody : PhysicsBody, addedBody : bool) -> void:
