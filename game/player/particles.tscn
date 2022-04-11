@@ -60,7 +60,7 @@ params_billboard_mode = 1
 material = SubResource( 2 )
 
 [node name="Particles" type="Particles"]
-transform = Transform( 1.20264, 0, 0, 0, 1.20264, 0, 0, 0, 1.20264, 0, 0, 0 )
+transform = Transform( 1.20264, 0, 0, 0, 1.20264, 0, 0, 0, 1.20264, 0, 0.157076, 0 )
 material_override = SubResource( 10 )
 amount = 200
 lifetime = 4.0
