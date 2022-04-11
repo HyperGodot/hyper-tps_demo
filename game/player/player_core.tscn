@@ -138,4 +138,7 @@ autostart = true
 
 [node name="GrapplingHook" type="Node" parent="."]
 
+[node name="IKTarget" type="Position3D" parent="GrapplingHook"]
+transform = Transform( -0.454202, 0.376862, -0.807264, 0.862653, -0.0403142, -0.504187, -0.222553, -0.925392, -0.30679, 0, 0.96284, -1.2328 )
+
 [connection signal="timeout" from="MoveNetworkTimer" to="." method="_on_MoveNetworkTimer_timeout"]

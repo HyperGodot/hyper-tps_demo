@@ -48,9 +48,6 @@ fov = 90.0
 
 [node name="PlayerDebugUI" parent="." index="7" instance=ExtResource( 5 )]
 
-[node name="IKTarget" type="Position3D" parent="GrapplingHook" index="0"]
-transform = Transform( -0.454202, 0.376862, -0.807264, 0.862653, -0.0403142, -0.504187, -0.222553, -0.925392, -0.30679, 0, 0.96284, -1.2328 )
-
 [node name="GrappleVisualPoint_1" parent="GrapplingHook" index="1" instance=ExtResource( 4 )]
 
 [connection signal="player_jump" from="Input" to="." method="_on_Input_player_jump"]
