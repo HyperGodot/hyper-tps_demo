@@ -21,6 +21,12 @@ export var cameraLerpAmount : float = 40
 export var currentSpeed : float = 0
 
 onready var meshNode : Spatial = $Model
+onready var meshSkeletonNode : Skeleton = $Model/Armature/Skeleton
+onready var meshSkeletalIKNode : SkeletonIK = $Model/Armature/Skeleton/SkeletonIK
+onready var meshSkeletonHiddenHand : MeshInstance = $Model/Armature/Skeleton/player001
+onready var meshHandBone : int = meshSkeletonNode.find_bone("DEF-hand.R")
+onready var meshHandBonePos : Transform = meshSkeletonNode.get_bone_pose(meshHandBone)
+
 onready var clippedCamera : Spatial = $CameraHead/CameraPivot/ClippedCamera
 onready var clippedCameraHead : Spatial = $CameraHead
 onready var clippedCameraPivot : Spatial = $CameraHead/CameraPivot
@@ -37,6 +43,9 @@ onready var grappleVisualPoint = grappleVisualPoint_1
 onready var grappleLineHelper : Spatial = $Model/GrappleLineHelper
 onready var grappleVisualLine : CSGCylinder = $Model/GrappleLineHelper/GrappleVisualLine_1
 # onready var grappleVisualLine : = $Model/GrappleLineHelper/GrappleVisualLine_2
+
+onready var grappleIKTarget : Position3D = $GrapplingHook/IKTarget
+onready var grapplingHandOriginalScale : Vector3 = Vector3.ZERO
 
 var grapplingHook_GrapplePosition : Vector3 = Vector3.ZERO
 var grapplingHook_IsHooked : bool = false
@@ -101,14 +110,6 @@ func getSpawnLocation() -> Vector3:
 func _process(_delta):
 	if(currentDirection != Vector3.ZERO):
 		meshNode.rotation.y = lerp_angle(meshNode.rotation.y, atan2(-currentDirection.x, -currentDirection.z), turn_velocity * _delta)
-	return
-	var meshSkel : Skeleton
-	meshSkel = meshNode.find_node("Skeleton", true)
-	var bone = meshSkel.find_bone("DEF-hand.R")
-	var bonePos = meshSkel.get_bone_pose(bone)
-	bonePos = bonePos.scaled( Vector3(0, 0, 0) )
-	meshSkel.set_bone_pose(bone, bonePos)
-	#meshSkel.add_child(boneAttachment)
 	
 func grapplingHook_Process():
 	grapplingHook_CheckActivation()
@@ -127,12 +128,17 @@ func grapplingHook_CheckActivation():
 		# grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
 		grappleVisualLine.show()
 		$Model/Sound_Shoot_GrapplingHook_2.play()
+		grappleIKTarget.translation = grapplingHook_GrapplePosition
+		grapplingHook_DisappearHand()
+		
 	elif(playerWantsToReleaseGrapplingHook):
 		# Stop grappling
-		grapplingHook_IsHooked = false
-		playerWantsToReleaseGrapplingHook = false
-		grappleVisualLine.hide()
-		$Model/Sound_Release_GrapplingHook.play()
+		if(grapplingHook_IsHooked):
+			grapplingHook_IsHooked = false
+			playerWantsToReleaseGrapplingHook = false
+			grappleVisualLine.hide()
+			$Model/Sound_Release_GrapplingHook.play()
+			grapplingHook_ReappearHand()
 	
 func grapplingHook_UpdateVisualPoint():
 	if grappleHookCast.is_colliding():
@@ -173,6 +179,20 @@ func grapplingHook_UpdatePlayerVelocityAndReturnHookLength() -> float:
 		kinematicVelocity += player2hook.normalized() * force
 	
 	return length
+	
+func grapplingHook_DisappearHand():
+	meshSkeletonHiddenHand.visible = false
+	#var bone = meshSkeletonNode.find_bone("DEF-hand.R")
+	#var bonePos = meshSkeletonNode.get_bone_pose(bone)
+	#bonePos = bonePos.scaled( Vector3(0.1, 0.1, 0.1) )
+	#meshSkeletonNode.set_bone_custom_pose(bone, bonePos)
+	
+func grapplingHook_ReappearHand():
+	meshSkeletonHiddenHand.visible = true
+	#var bone = meshSkeletonNode.find_bone("DEF-hand.R")
+	#var bonePos = meshSkeletonNode.get_bone_pose(bone)
+	#bonePos = bonePos.( Vector3(1, 1, 1) )
+	#meshSkeletonNode.set_bone_custom_pose(bone, bonePos)
 
 var jumpingUp : bool
 func _physics_process(_delta):
@@ -225,6 +245,12 @@ func _physics_process(_delta):
 	
 	# Update Grappling Hook
 	grapplingHook_Process()
+	
+	# Check for Hand IK from Grappling Hook
+	if(grapplingHook_IsHooked):
+		meshSkeletalIKNode.start()
+	else:
+		meshSkeletalIKNode.stop()
 		
 	
 	#	self.linear_velocity.y += jumpHeight

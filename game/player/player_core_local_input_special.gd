@@ -17,6 +17,11 @@ func _input(_event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(mouseModeBackup)
+	if Input.is_action_just_pressed("toggle_slowmo"):
+		if Engine.get_time_scale() < 1.0:
+			Engine.set_time_scale(1.0)
+		else:
+			Engine.set_time_scale(0.1)
 
 func _process(_delta):
 	pass

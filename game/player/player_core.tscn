@@ -85,7 +85,7 @@ attenuation_filter_cutoff_hz = 20500.0
 transform = Transform( 1.53846, 0, 0, 0, 1.53846, 0, 0, 0, 1.53846, 0, 0.753, 0 )
 
 [node name="GrappleVisualLine_1" parent="Model/GrappleLineHelper" instance=ExtResource( 34 )]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.753, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.753, -0.121675 )
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
