@@ -9,6 +9,9 @@
 
 [node name="PlayerCoreLocal" instance=ExtResource( 1 )]
 
+[node name="SkeletonIK" parent="Model/Armature/Skeleton" index="2"]
+target_node = NodePath("../../../../CameraHead/CameraPivot/Position3D")
+
 [node name="Sound_Jump" parent="Model" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
@@ -37,11 +40,14 @@ enabled = true
 cast_to = Vector3( 0, 0, -400 )
 collision_mask = 2
 debug_shape_custom_color = Color( 1, 0, 0, 1 )
-debug_shape_thickness = 5
+debug_shape_thickness = 5.0
 
 [node name="ClippedCamera" type="ClippedCamera" parent="CameraHead/CameraPivot" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5 )
 fov = 90.0
+
+[node name="Position3D" type="Position3D" parent="CameraHead/CameraPivot" index="2"]
+transform = Transform( -0.454202, 0.376862, -0.807264, 0.862653, -0.0403142, -0.504187, -0.222553, -0.925392, -0.30679, -0.5, -0.53716, -1.2328 )
 
 [node name="PlayerDebugUI" parent="." index="7" instance=ExtResource( 5 )]
 
@@ -53,3 +59,5 @@ fov = 90.0
 [connection signal="player_release_grapplinghook" from="Input" to="." method="_on_Input_player_release_grapplinghook"]
 [connection signal="player_restore_origin" from="Input" to="." method="_on_Input_player_restore_origin"]
 [connection signal="player_shoot_grapplinghook" from="Input" to="." method="_on_Input_player_shoot_grapplinghook"]
+
+[editable path="Model"]
