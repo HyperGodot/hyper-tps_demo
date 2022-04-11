@@ -29,13 +29,14 @@ onready var clippedCameraPivot : Spatial = $CameraHead/CameraPivot
 onready var meshCollisionShape : CollisionShape = $CollisionShape
 
 onready var grappleHookCast : RayCast = $CameraHead/CameraPivot/GrappleHookCast
-#onready var grappleVisualPoint : CSGSphere = $GrapplingHook/GrappleVisualPoint_1
-#onready var grappleVisualPoint : Sprite3D = $GrapplingHook/GrappleVisualPoint_2
-onready var grappleVisualPoint : Spatial = $GrapplingHook/GrappleVisualPoint
-onready var grappleLineHelper : Spatial = $Model/LineHelper
-# onready var grappleVisualLine : CSGCylinder = $GrapplingHook/LineHelper/GrappleVisualLine
-onready var grappleVisualLine : CSGCylinder = $Model/LineHelper/GrappleVisualLine
-#onready var grappleVisualLine : Spatial = $Model/LineHelper/GrappleVisualLine_1
+
+onready var grappleVisualPoint_1 = $GrapplingHook/GrappleVisualPoint_1
+onready var grappleVisualPoint_2 = $GrapplingHook/GrappleVisualPoint_2
+onready var grappleVisualPoint = grappleVisualPoint_1
+
+onready var grappleLineHelper : Spatial = $Model/GrappleLineHelper
+onready var grappleVisualLine : CSGCylinder = $Model/GrappleLineHelper/GrappleVisualLine_1
+# onready var grappleVisualLine : = $Model/GrappleLineHelper/GrappleVisualLine_2
 
 var grapplingHook_GrapplePosition : Vector3 = Vector3.ZERO
 var grapplingHook_IsHooked : bool = false
@@ -125,7 +126,7 @@ func grapplingHook_CheckActivation():
 		grapplingHook_IsHooked = true
 		# grapplingHook_GrapplePosition = grappleHookCast.get_collision_point()
 		grappleVisualLine.show()
-		$Model/Sound_Shoot_GrapplingHook_1.play()
+		$Model/Sound_Shoot_GrapplingHook_2.play()
 	elif(playerWantsToReleaseGrapplingHook):
 		# Stop grappling
 		grapplingHook_IsHooked = false
