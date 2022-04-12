@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/maps/map_test/asset_map_test.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/maps/map_core.gd" type="Script" id=2]
 [ext_resource path="res://game/map_decorations/spawnpad_nocollision.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game/map_decorations/teleport.scn" type="PackedScene" id=4]
 
 [sub_resource type="ProceduralSky" id=34]
 sky_top_color = Color( 0.4, 0.741176, 0.92549, 1 )
@@ -41,7 +42,7 @@ glow_hdr_threshold = 0.44
 glow_hdr_luminance_cap = 11.62
 glow_hdr_scale = 1.16
 
-[node name="map_test" type="Node"]
+[node name="map_test" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="asset_map_test" parent="." instance=ExtResource( 1 )]
@@ -57,6 +58,11 @@ directional_shadow_depth_range = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 9 )
+
+[node name="Teleporters" type="Node" parent="."]
+
+[node name="Teleporter_1" parent="Teleporters" instance=ExtResource( 4 )]
+transform = Transform( 0.655427, 0, -0.755259, 0, 1, 0, 0.755259, 0, 0.655427, -15.0371, -3.75616, -37.6492 )
 
 [node name="PlayerSpawnNodes" type="Node" parent="."]
 

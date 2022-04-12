@@ -82,7 +82,7 @@ var Particles_Land = preload("res://game/player/particles.tscn")
 
 func _ready():
 	# Get Current Map
-	currentMap = get_tree().get_current_scene().get_node("CurrentMap").get_child(0)
+	currentMap = get_tree().get_current_scene().get_node("Maps").get_child(0)
 	
 	# Backup Origin
 	originalOrigin = self.translation
@@ -103,8 +103,7 @@ func directionUpdate(_direction : Vector3):
 	self.currentDirection = _direction
 	
 func getSpawnLocation() -> Vector3:
-	var spawnLocation : Vector3 = currentMap.getSpawnLocation()
-	return spawnLocation
+	return get_tree().get_current_scene().getSpawnLocation()
 
 
 func _process(_delta):
@@ -124,6 +123,7 @@ func grapplingHook_CheckActivation():
 	# Activate hook
 	if(playerWantsToShootGrapplingHook):
 		playerWantsToShootGrapplingHook = false
+		playerWantsToReleaseGrapplingHook = false
 		grapplingHook_IsHooked = true
 		grappleVisualLine.show()
 		$Model/Sound_Shoot_GrapplingHook_2.play()

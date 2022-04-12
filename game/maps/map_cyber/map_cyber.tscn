@@ -149,7 +149,7 @@ shader_param/_clouds_texture = ExtResource( 15 )
 radial_segments = 8
 rings = 8
 
-[node name="map_cyber" type="Node"]
+[node name="map_cyber" type="Spatial"]
 script = ExtResource( 4 )
 
 [node name="asset_map_cyber" parent="." instance=ExtResource( 2 )]

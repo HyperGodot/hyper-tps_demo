@@ -7,15 +7,11 @@ onready var velocityValue : Label = $Panel/MarginContainer/GridContainer/Velocit
 onready var speedValue : Label = $Panel/MarginContainer/GridContainer/Speed_Value
 onready var onfloorValue : Label = $Panel/MarginContainer/GridContainer/OnFloor_Value
 
+
 const EVENT_PLAYER_MAPCHANGE = 'player_mapchange'
 
 var actualMapNode : Node
 var hyperGossip : HyperGossip
-
-# TODO : I don't know where these should go, no real dynamic detection of nodes like this
-var map_test = preload("res://game/maps/map_test/map_test.tscn")
-var map_cyber = preload("res://game/maps/map_cyber/map_cyber.tscn")
-var map_cyber1 = preload("res://game/maps/map_cyber1/map_cyber1.scn")
 
 
 func _ready():
@@ -24,7 +20,7 @@ func _ready():
 	onfloorValue.text = "N/A"
 	
 	# Update Actual Map Node
-	actualMapNode = get_tree().get_current_scene().get_node("CurrentMap").find_node("*", true, false)
+	actualMapNode = get_tree().get_current_scene().get_node("Maps").get_child(0)
 	
 	# Get HyperGossip
 	hyperGossip = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGossip")
@@ -75,11 +71,11 @@ func tryMapChange(mapChangeName : String, sendGossip : bool):
 	if(mapCurrentName != mapChangeName):
 		actualMapNode.queue_free()
 		if(mapChangeName == "map_test"):
-			mapNode = map_test
+			mapNode = get_tree().get_current_scene().map_test
 		elif(mapChangeName == "map_cyber"):
-			mapNode = map_cyber
+			mapNode = get_tree().get_current_scene().map_cyber
 		elif(mapChangeName == "map_cyber1"):
-			mapNode = map_cyber1
+			mapNode = get_tree().get_current_scene().map_cyber1
 		var newMap = mapNode.instance()
 		currentMapNode.add_child(newMap)
 		# Update Current Map
