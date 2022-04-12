@@ -115,7 +115,7 @@ window/size/height=810
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/jc.godot.time-of-day/plugin.cfg" )
 
 [input]
 

@@ -47,7 +47,10 @@ script = ExtResource( 2 )
 
 [node name="asset_map_test" parent="." instance=ExtResource( 1 )]
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 9 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
 transform = Transform( -0.829081, 0.311429, -0.464368, -0.0172758, 0.815855, 0.577998, 0.558862, 0.487229, -0.67103, 0, 23.9287, 0 )
 light_color = Color( 0.0117647, 0.8, 0.929412, 1 )
 light_energy = 1.843
@@ -56,15 +59,12 @@ light_specular = 1.173
 shadow_enabled = true
 directional_shadow_depth_range = 1
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 9 )
-
-[node name="Teleporters" type="Node" parent="."]
+[node name="Teleporters" type="Spatial" parent="."]
 
 [node name="Teleporter_1" parent="Teleporters" instance=ExtResource( 4 )]
 transform = Transform( 0.655427, 0, -0.755259, 0, 1, 0, 0.755259, 0, 0.655427, -15.0371, -3.75616, -37.6492 )
 
-[node name="PlayerSpawnNodes" type="Node" parent="."]
+[node name="PlayerSpawnNodes" type="Spatial" parent="."]
 
 [node name="Spawnpad_1" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.673, 2.446, -3.56 )
