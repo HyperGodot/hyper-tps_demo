@@ -289,7 +289,8 @@ func respawnPlayer():
 	grapplingHook_IsHooked = false
 	playerWantsToShootGrapplingHook = false
 	playerWantsToReleaseGrapplingHook = true
-	self.translation = currentSpawnLocation
+	global_transform.origin = get_tree().get_current_scene().getSpawnLocation()
+	# translation = ( get_tree().get_current_scene().getSpawnLocation() )# ) = currentSpawnLocation
 
 func playerCanJump() -> bool:
 	if( self.is_on_floor() ):

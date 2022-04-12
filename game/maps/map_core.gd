@@ -1,4 +1,4 @@
-extends Node
+extends Spatial
 
 onready var playerSpawnNodes : Node = find_node("PlayerSpawnNodes")
 

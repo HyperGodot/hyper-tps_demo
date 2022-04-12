@@ -33,6 +33,8 @@ func getSpawnLocation() -> Vector3:
 	childCount = playerSpawnNodes.get_child_count()
 	# Get Random Spawn Node
 	var spawnNode : Spatial = playerSpawnNodes.get_child( randi() % childCount )
+	# Get Global Space
+	var globalCoord = spawnNode.global_transform.origin
 	
 	# Return!
-	return spawnNode.translation
+	return spawnNode.global_transform.origin

@@ -1,4 +1,4 @@
-extends Node
+extends Spatial
 
 
 # Declare member variables here. Examples:
