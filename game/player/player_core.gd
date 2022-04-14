@@ -9,6 +9,7 @@ const EVENT_PLAYER_DIRECTION = 'player_direction'
 const EVENT_PLAYER_RESPAWNPLAYER = 'player_respawnplayer'
 const EVENT_PLAYER_SHOOT_GRAPPLINGHOOK = 'player_shoot_grapplinghook'
 const EVENT_PLAYER_RELEASE_GRAPPLINGHOOK = 'player_release_grapplinghook'
+const EVENT_PLAYER_TOGGLE_LIGHT = 'player_toggle_light'
 
 export var mouseSensitivity : float = 0.3
 export var movementSpeed : float = 14
@@ -47,6 +48,8 @@ onready var grappleVisualLine : CSGCylinder = $Model/GrappleLineHelper/GrappleVi
 onready var grappleIKTarget : Position3D = $GrapplingHook/IKTarget
 onready var grapplingHandOriginalScale : Vector3 = Vector3.ZERO
 
+onready var omniLight : OmniLight = $OmniLight
+
 var grapplingHook_GrapplePosition : Vector3 = Vector3.ZERO
 var grapplingHook_IsHooked : bool = false
 var playerWantsToShootGrapplingHook : bool = false
@@ -70,6 +73,7 @@ var playerCanJump : bool = false
 var playerWantsToJump : bool = false
 
 var playerWantsNewWorldEnvironment : bool = true
+var playerWantsToToggleLight : bool = false
 
 var f_input : float
 var h_input : float
@@ -208,6 +212,12 @@ func _physics_process(_delta):
 	if(playerWantsNewWorldEnvironment):
 		playerWantsNewWorldEnvironment = false
 		currentMap.updateMapWorldEnvironmentScene()
+		
+	# Check for Toggle Light
+	if(playerWantsToToggleLight):
+		playerWantsToToggleLight = false
+		omniLight.visible = !omniLight.visible
+		$Model/Sound_ToggleLight_1.play()
 	
 	# Moving the character
 	var y_cache : float = kinematicVelocity.y
@@ -380,6 +390,10 @@ func _on_Input_player_release_grapplinghook():
 		if(grapplingHook_IsHooked):
 			playerWantsToReleaseGrapplingHook = true
 			hyperGossip.broadcast_event(EVENT_PLAYER_RELEASE_GRAPPLINGHOOK, getPlayerLocalCoreNetworkData() )
+			
+func _on_Input_player_toggle_light():
+	playerWantsToToggleLight = true
+	hyperGossip.broadcast_event(EVENT_PLAYER_TOGGLE_LIGHT, getPlayerLocalCoreNetworkData() )
 	
 	
 func _checkPlayerCanJump(newBody : PhysicsBody, addedBody : bool) -> void:

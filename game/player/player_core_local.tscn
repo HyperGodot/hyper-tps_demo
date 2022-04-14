@@ -54,5 +54,6 @@ far = 8192.0
 [connection signal="player_release_grapplinghook" from="Input" to="." method="_on_Input_player_release_grapplinghook"]
 [connection signal="player_restore_origin" from="Input" to="." method="_on_Input_player_restore_origin"]
 [connection signal="player_shoot_grapplinghook" from="Input" to="." method="_on_Input_player_shoot_grapplinghook"]
+[connection signal="player_toggle_light" from="Input" to="." method="_on_Input_player_toggle_light"]
 
 [editable path="Model"]

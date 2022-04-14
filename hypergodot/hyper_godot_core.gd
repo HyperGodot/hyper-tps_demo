@@ -15,6 +15,7 @@ const EVENT_PLAYER_RESPAWNPLAYER = 'player_respawnplayer'
 const EVENT_PLAYER_MAPCHANGE = 'player_mapchange'
 const EVENT_PLAYER_SHOOT_GRAPPLINGHOOK = 'player_shoot_grapplinghook'
 const EVENT_PLAYER_RELEASE_GRAPPLINGHOOK = 'player_release_grapplinghook'
+const EVENT_PLAYER_TOGGLE_LIGHT = 'player_toggle_light'
 
 var PlayerCoreLocal = preload("res://game/player/player_core_local.tscn")
 var PlayerCoreRemote = preload("res://game/player/player_core_remote.tscn")
@@ -80,6 +81,8 @@ func _on_HyperGossip_event(type, data, from):
 		updatePlayer_shootGrapplingHook(data, from)
 	elif type == EVENT_PLAYER_RELEASE_GRAPPLINGHOOK:
 		updatePlayer_releaseGrapplingHook(data, from)
+	elif type == EVENT_PLAYER_TOGGLE_LIGHT:
+		updatePlayer_toggleLight(data, from)
 	
 func get_player_object(id):
 	if knownPlayers.has(id):
@@ -130,6 +133,12 @@ func updatePlayer_wantstojump(data, id):
 	
 	remotePlayer.playerCoreNetworkDataUpdate(data)
 	remotePlayer.playerWantsToJump = true
+	
+func updatePlayer_toggleLight(data, id):
+	var remotePlayer = get_player_object(id)
+	
+	remotePlayer.playerCoreNetworkDataUpdate(data)
+	remotePlayer.playerWantsToToggleLight = true
 	
 func updatePlayer_mapchange(data, _id):
 	var newMapName = data.map.name
