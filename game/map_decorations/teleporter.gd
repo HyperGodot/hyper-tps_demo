@@ -32,6 +32,7 @@ func tryMapChange(mapChangeName : String, sendGossip : bool, playerNode):
 		playerNode.currentSpawnLocation = playerNode.getSpawnLocationForMapName(mapChangeName)
 		playerNode.currentMap = mapNode
 		playerNode.playerWantsToRespawn = true
+		playerNode.playerWantsNewWorldEnvironment = true
 		
 		if(sendGossip):
 			var data : Dictionary = {

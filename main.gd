@@ -1,8 +1,8 @@
 extends Node
 
-export(NodePath) var MAP_TEST : NodePath
-export(NodePath) var map_cyber : NodePath
-export(NodePath) var map_cyber1 : NodePath
+onready var map_test_environment = preload("res://assets/maps/map_test/map_test_environment.scn")
+onready var map_cyber_environment = preload("res://assets/maps/map_cyber/map_cyber_environment.scn")
+onready var map_cyber1_environment = preload("res://assets/maps/map_cyber1/map_cyber1_environment.scn")
 
 func _ready():
 	pass
@@ -26,3 +26,9 @@ func getSpawnLocation(bodyNode, mapNode) -> Vector3:
 	
 	# Return!
 	return spawnNode.global_transform.origin
+	
+func PurgeAllWorldEnvironmentNodes():
+	var worldEnvironment = find_node("WorldEnvironment", true, false)
+	while(worldEnvironment != null):
+		worldEnvironment.free()
+		worldEnvironment = find_node("WorldEnvironment", true, false)

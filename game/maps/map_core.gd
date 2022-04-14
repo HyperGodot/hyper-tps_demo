@@ -2,7 +2,7 @@ extends Spatial
 
 onready var playerSpawnNodes : Node = find_node("PlayerSpawnNodes")
 
-export var map_name : String = ""
+export(String) var map_name : String = ""
 
 func _ready():
 	randomize()
@@ -15,6 +15,21 @@ func getSpawnLocation() -> Vector3:
 	var childCount : int = playerSpawnNodes.get_child_count()
 	var spawnNode : Spatial = playerSpawnNodes.get_child( randi() % childCount )
 	return spawnNode.global_transform.origin
+	
+func getInstanceOfMapWorldEnvironmentScene():
+	var path = "res://assets/maps/" + map_name + "/" + map_name + "_environment.scn"
+	var worldEnvironment = load(path)
+	return worldEnvironment
+	
+func updateMapWorldEnvironmentScene():
+	# First check to see if we need to delete any existing World Environments
+	get_tree().get_current_scene().PurgeAllWorldEnvironmentNodes()
+		
+	# Spawn in new World Environment
+	var worldEnvironment = getInstanceOfMapWorldEnvironmentScene()
+	if(worldEnvironment != null):
+		add_child(worldEnvironment.instance())
+	pass
 
 func addGrapplingHookCollisionMaskToMap():
 	var _name = self.name

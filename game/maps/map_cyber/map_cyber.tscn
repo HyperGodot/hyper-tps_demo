@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/sounds/ambience/ear_wind.mp3" type="AudioStream" id=1]
-[ext_resource path="res://assets/maps/maps_cyber/level0.scn" type="PackedScene" id=2]
+[ext_resource path="res://assets/maps/map_cyber/level0.scn" type="PackedScene" id=2]
 [ext_resource path="res://game/map_decorations/spawnpad.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/maps/map_core.gd" type="Script" id=4]
 [ext_resource path="res://game/map_decorations/teleport.scn" type="PackedScene" id=5]
-[ext_resource path="res://assets/maps/maps_cyber/map_cyber_WorldEnvironment.scn" type="PackedScene" id=6]
+[ext_resource path="res://assets/maps/map_cyber/map_cyber_environment.scn" type="PackedScene" id=6]
 
 [sub_resource type="GIProbeData" id=1]
 bounds = AABB( -40, -40, -100, 80, 80, 200 )
@@ -23,12 +23,14 @@ propagation = 0.7
 script = ExtResource( 4 )
 map_name = "map_cyber"
 
+[node name="WorldEnvironment" parent="." instance=ExtResource( 6 )]
+
+[node name="asset_map_cyber" parent="." instance=ExtResource( 2 )]
+
 [node name="GIProbe" type="GIProbe" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.48052, 2.93851, 0 )
 extents = Vector3( 40, 40, 100 )
 data = SubResource( 1 )
-
-[node name="asset_map_cyber" parent="." instance=ExtResource( 2 )]
 
 [node name="PlayerSpawnNodes" type="Spatial" parent="."]
 
@@ -64,7 +66,5 @@ max_db = 1.0
 pitch_scale = 1.36
 autoplay = true
 max_distance = 2000.0
-
-[node name="WorldEnvironment" parent="." instance=ExtResource( 6 )]
 
 [editable path="asset_map_cyber"]

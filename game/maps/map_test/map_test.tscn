@@ -4,7 +4,7 @@
 [ext_resource path="res://game/maps/map_core.gd" type="Script" id=2]
 [ext_resource path="res://game/map_decorations/spawnpad_nocollision.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/map_decorations/teleport.scn" type="PackedScene" id=4]
-[ext_resource path="res://assets/maps/map_test/map_test_environment.res" type="Environment" id=5]
+[ext_resource path="res://assets/maps/map_test/map_test_environment.scn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sounds/ambience/howling_wind.mp3" type="AudioStream" id=6]
 
 [sub_resource type="BoxShape" id=35]
@@ -12,6 +12,8 @@
 [node name="map_test" type="Spatial"]
 script = ExtResource( 2 )
 map_name = "map_test"
+
+[node name="WorldEnvironment" parent="." instance=ExtResource( 5 )]
 
 [node name="asset_map_test" parent="." instance=ExtResource( 1 )]
 
@@ -23,18 +25,6 @@ max_db = 1.0
 pitch_scale = 1.36
 autoplay = true
 max_distance = 500.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 5 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment"]
-transform = Transform( -0.829081, 0.311429, -0.464368, -0.0172758, 0.815855, 0.577998, 0.558862, 0.487229, -0.67103, 0, 23.9287, 0 )
-light_color = Color( 0.0117647, 0.8, 0.929412, 1 )
-light_energy = 1.843
-light_indirect_energy = 0.0
-light_specular = 1.173
-shadow_enabled = true
-directional_shadow_depth_range = 1
 
 [node name="Teleporters" type="Spatial" parent="."]
 

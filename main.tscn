@@ -12,9 +12,6 @@
 
 [node name="Main" type="Node"]
 script = ExtResource( 7 )
-MAP_TEST = NodePath("Maps/map_test")
-map_cyber = NodePath("Maps/map_cyber")
-map_cyber1 = NodePath("Maps/map_cyber1")
 
 [node name="Maps" type="Node" parent="."]
 

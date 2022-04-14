@@ -69,6 +69,8 @@ var jumpFloorDirection : Vector3 = Vector3(0,1,0)
 var playerCanJump : bool = false
 var playerWantsToJump : bool = false
 
+var playerWantsNewWorldEnvironment : bool = true
+
 var f_input : float
 var h_input : float
 
@@ -292,6 +294,11 @@ func respawnPlayer():
 	playerWantsToReleaseGrapplingHook = true
 	$Model/Sound_Teleport_1.play()
 	global_transform.origin = currentSpawnLocation
+	
+	# Check for New World Environment
+	if(playerWantsNewWorldEnvironment):
+		playerWantsNewWorldEnvironment = false
+		currentMap.updateMapWorldEnvironmentScene()
 	# translation = ( get_tree().get_current_scene().getSpawnLocation() )# ) = currentSpawnLocation
 
 func playerCanJump() -> bool:
