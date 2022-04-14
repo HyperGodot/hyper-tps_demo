@@ -1,6 +1,6 @@
 extends Spatial
 
-export var teleportation_destination : String = "map_test"
+export var teleportation_destination : String = ""
 
 onready var mapsNode : Node = get_tree().get_current_scene().get_node("Maps")
 

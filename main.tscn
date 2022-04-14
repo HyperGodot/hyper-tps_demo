@@ -27,7 +27,6 @@ map_name = "map_cyber"
 
 [node name="map_cyber1" parent="Maps" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 357.971, 3.8147e-06, 43.2013 )
-map_name = "map_cyber1"
 
 [node name="Players" type="Node" parent="."]
 
