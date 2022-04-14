@@ -1,21 +1,11 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/sounds/ambience/ear_wind.mp3" type="AudioStream" id=1]
 [ext_resource path="res://assets/maps/maps_cyber/level0.scn" type="PackedScene" id=2]
 [ext_resource path="res://game/map_decorations/spawnpad.tscn" type="PackedScene" id=3]
 [ext_resource path="res://game/maps/map_core.gd" type="Script" id=4]
 [ext_resource path="res://game/map_decorations/teleport.scn" type="PackedScene" id=5]
-[ext_resource path="res://addons/jc.godot.time-of-day/Code/Sky/Skydome.gd" type="Script" id=6]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Scenes/Moon/MoonRender.tscn" type="PackedScene" id=7]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Shaders/Sky.shader" type="Shader" id=8]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Resources/SNoise.tres" type="Texture" id=9]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Shaders/AtmFog.shader" type="Shader" id=10]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Shaders/CloudsCumulus.shader" type="Shader" id=11]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Assets/ThirdParty/Graphics/Textures/MilkyWay/Milkyway.jpg" type="Texture" id=12]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Assets/ThirdParty/Graphics/Textures/MilkyWay/StarField.jpg" type="Texture" id=13]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Assets/MyAssets/Graphics/Textures/noise.jpg" type="Texture" id=14]
-[ext_resource path="res://addons/jc.godot.time-of-day-common/Assets/MyAssets/Graphics/Textures/noiseClouds.png" type="Texture" id=15]
-[ext_resource path="res://assets/maps/maps_cyber/map_cyber_environment.res" type="Environment" id=16]
+[ext_resource path="res://assets/maps/maps_cyber/map_cyber_WorldEnvironment.scn" type="PackedScene" id=6]
 
 [sub_resource type="GIProbeData" id=1]
 bounds = AABB( -40, -40, -100, 80, 80, 200 )
@@ -26,119 +16,6 @@ dynamic_range = 4
 bias = 1.5
 normal_bias = 0.0
 propagation = 0.7
-
-[sub_resource type="ViewportTexture" id=11]
-
-[sub_resource type="ShaderMaterial" id=12]
-render_priority = -128
-shader = ExtResource( 8 )
-shader_param/_color_correction_params = Vector2( 0.079, 1.602 )
-shader_param/_ground_color = Color( 0.12549, 0.113725, 0.113725, 1 )
-shader_param/_horizon_level = 0.0
-shader_param/_sun_direction = Vector3( -0.395595, -0.918425, 7.55825e-05 )
-shader_param/_moon_direction = Vector3( -0.700797, 0.639103, 0.316909 )
-shader_param/_moon_size = 0.5
-shader_param/_moon_matrix = Basis( -1.49012e-08, 0.444247, -0.895904, -0.713361, -0.627847, -0.311327, -0.700797, 0.639103, 0.316909 )
-shader_param/_deep_space_matrix = Basis( -0.835589, -0.375265, 0.401208, 0, 0.730324, 0.683101, -0.549356, 0.570791, -0.610251 )
-shader_param/_atm_darkness = 0.436
-shader_param/_atm_sun_intensity = 30.0
-shader_param/_atm_day_tint = Color( 0.807843, 0.909804, 1, 1 )
-shader_param/_atm_horizon_light_tint = Color( 0.980392, 0.635294, 0.462745, 1 )
-shader_param/_atm_night_tint = Color( 0.0980398, 0.11628, 0.14592, 0.5814 )
-shader_param/_atm_level_params = Vector3( 1, 0, 0 )
-shader_param/_atm_thickness = 0.7
-shader_param/_atm_sun_mie_tint = Color( 1, 1, 1, 1 )
-shader_param/_atm_sun_mie_intensity = 1.0
-shader_param/_atm_moon_mie_tint = Color( 0.137255, 0.184314, 0.292196, 1 )
-shader_param/_atm_moon_mie_intensity = 0.636799
-shader_param/_atm_beta_ray = Vector3( 5.80454e-06, 1.35629e-05, 3.31126e-05 )
-shader_param/_atm_beta_mie = Vector3( 3.038e-08, 3.038e-08, 3.038e-08 )
-shader_param/_atm_sun_partial_mie_phase = Vector3( 0.36, 1.64, 1.6 )
-shader_param/_atm_moon_partial_mie_phase = Vector3( 0.345519, 1.65448, 1.618 )
-shader_param/_sun_disk_color = Color( 0.996094, 0.541334, 0.140076, 1 )
-shader_param/_sun_disk_intensity = 2.0
-shader_param/_sun_disk_size = 0.185
-shader_param/_moon_color = Color( 1, 1, 1, 1 )
-shader_param/_background_color = Color( 0.709804, 0.709804, 0.709804, 0.854902 )
-shader_param/_stars_field_color = Color( 1, 1, 1, 1 )
-shader_param/_stars_scintillation = 0.75
-shader_param/_stars_scintillation_speed = 0.01
-shader_param/_clouds_coverage = 0.5
-shader_param/_clouds_thickness = 1.7
-shader_param/_clouds_absorption = 2.0
-shader_param/_clouds_sky_tint_fade = 0.5
-shader_param/_clouds_intensity = 10.0
-shader_param/_clouds_size = 2.0
-shader_param/_clouds_uv = Vector2( 0.16, 0.11 )
-shader_param/_clouds_offset_speed = 0.01
-shader_param/_clouds_offset = Vector2( 0.21, 0.175 )
-shader_param/_moon_texture = SubResource( 11 )
-shader_param/_background_texture = ExtResource( 12 )
-shader_param/_stars_field_texture = ExtResource( 13 )
-shader_param/_noise_tex = ExtResource( 14 )
-shader_param/_clouds_texture = ExtResource( 9 )
-
-[sub_resource type="SphereMesh" id=13]
-radial_segments = 16
-rings = 8
-
-[sub_resource type="ShaderMaterial" id=14]
-render_priority = 123
-shader = ExtResource( 10 )
-shader_param/_color_correction_params = Vector2( 0.079, 1.602 )
-shader_param/_fog_density = 0.0262283
-shader_param/_fog_rayleigh_depth = 0.116
-shader_param/_fog_mie_depth = 0.0454481
-shader_param/_fog_falloff = 2.817
-shader_param/_fog_start = 0.0
-shader_param/_fog_end = 311.927
-shader_param/_sun_direction = Vector3( -0.395595, -0.918425, 7.55825e-05 )
-shader_param/_moon_direction = Vector3( -0.700797, 0.639103, 0.316909 )
-shader_param/_atm_darkness = 0.436
-shader_param/_atm_sun_intensity = 30.0
-shader_param/_atm_day_tint = Color( 0.807843, 0.909804, 1, 1 )
-shader_param/_atm_horizon_light_tint = Color( 0.980392, 0.635294, 0.462745, 1 )
-shader_param/_atm_night_tint = Color( 0.140888, 0.167101, 0.209695, 0.835503 )
-shader_param/_atm_level_params = Vector3( 1, 0, -1 )
-shader_param/_atm_thickness = 0.7
-shader_param/_atm_beta_ray = Vector3( 5.80454e-06, 1.35629e-05, 3.31126e-05 )
-shader_param/_atm_beta_mie = Vector3( 3.038e-08, 3.038e-08, 3.038e-08 )
-shader_param/_atm_sun_partial_mie_phase = Vector3( 0.36, 1.64, 1.6 )
-shader_param/_atm_sun_mie_tint = Color( 1, 1, 1, 1 )
-shader_param/_atm_sun_mie_intensity = 1.0
-shader_param/_atm_moon_partial_mie_phase = Vector3( 0.345519, 1.65448, 1.618 )
-shader_param/_atm_moon_mie_tint = Color( 0.137255, 0.184314, 0.292196, 1 )
-shader_param/_atm_moon_mie_intensity = 0.636799
-
-[sub_resource type="QuadMesh" id=15]
-size = Vector2( 2, 2 )
-
-[sub_resource type="ShaderMaterial" id=16]
-render_priority = -127
-shader = ExtResource( 11 )
-shader_param/_sun_direction = Vector3( -0.395595, -0.918425, 7.55825e-05 )
-shader_param/_moon_direction = Vector3( -0.700797, 0.639103, 0.316909 )
-shader_param/_clouds_coverage = 0.55
-shader_param/_clouds_thickness = 0.0243
-shader_param/_clouds_absorption = 2.0
-shader_param/_clouds_noise_freq = 2.7
-shader_param/_clouds_sky_tint_fade = null
-shader_param/_clouds_intensity = 1.0
-shader_param/_clouds_size = 0.5
-shader_param/_clouds_offset_speed = 0.005
-shader_param/_clouds_offset = Vector3( 0.64, 0.522, 0.128 )
-shader_param/_clouds_day_color = Color( 0.823529, 0.87451, 1, 1 )
-shader_param/_clouds_horizon_light_color = Color( 1, 0.333333, 0.152941, 1 )
-shader_param/_clouds_night_color = Color( 0.090196, 0.094118, 0.129412, 1 )
-shader_param/_clouds_partial_mie_phase = Vector3( 0.957564, 1.04244, 0.412 )
-shader_param/_clouds_mie_intensity = 1.0
-shader_param/_atm_sun_mie_tint = Color( 1, 1, 1, 1 )
-shader_param/_atm_moon_mie_tint = Color( 0.137255, 0.184314, 0.292196, 1 )
-shader_param/_clouds_texture = ExtResource( 15 )
-
-[sub_resource type="SphereMesh" id=17]
-radial_segments = 8
-rings = 8
 
 [sub_resource type="SphereShape" id=10]
 
@@ -173,136 +50,6 @@ stream = ExtResource( 1 )
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16.031, -1.21, 38.792 )
 teleportation_destination = "map_test"
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 16 )
-
-[node name="Skydome" type="Node" parent="WorldEnvironment"]
-script = ExtResource( 6 )
-sky_visible = true
-dome_radius = 10.0
-tonemap_level = 0.079
-exposure = 1.602
-ground_color = Color( 0.12549, 0.113725, 0.113725, 1 )
-sky_layers = 4
-sky_render_priority = -128
-horizon_level = 0.0
-sun_altitude = -203.303
-sun_azimuth = -89.989
-sun_disk_color = Color( 0.996094, 0.541334, 0.140076, 1 )
-sun_disk_intensity = 2.0
-sun_disk_size = 0.185
-sun_light_path = NodePath("")
-sun_light_color = Color( 0.984314, 0.843137, 0.788235, 1 )
-sun_horizon_light_color = Color( 1, 0.384314, 0.243137, 1 )
-sun_light_energy = 1.0
-moon_altitude = -50.275
-moon_azimuth = 114.333
-moon_color = Color( 1, 1, 1, 1 )
-moon_size = 0.5
-enable_set_moon_texture = false
-moon_resolution = 2
-moon_light_path = NodePath("MoonLight")
-moon_light_color = Color( 0.572549, 0.776471, 0.956863, 1 )
-moon_light_energy = 0.5
-deep_space_euler = Vector3( -0.752, 2.56, 0 )
-background_color = Color( 0.709804, 0.709804, 0.709804, 0.854902 )
-set_background_texture = false
-stars_field_color = Color( 1, 1, 1, 1 )
-set_stars_field_texture = false
-stars_scintillation = 0.75
-stars_scintillation_speed = 0.01
-atm_quality = 0
-atm_wavelenghts = Vector3( 680, 550, 440 )
-atm_darkness = 0.436
-atm_sun_instensity = 30.0
-atm_day_tint = Color( 0.807843, 0.909804, 1, 1 )
-atm_horizon_light_tint = Color( 0.980392, 0.635294, 0.462745, 1 )
-atm_enable_moon_scatter_mode = true
-atm_night_tint = Color( 0.168627, 0.2, 0.25098, 1 )
-atm_level_params = Vector3( 1, 0, 0 )
-atm_thickness = 0.7
-atm_mie = 0.07
-atm_turbidity = 0.001
-atm_sun_mie_tint = Color( 1, 1, 1, 1 )
-atm_sun_mie_intensity = 1.0
-atm_sun_mie_anisotropy = 0.8
-atm_moon_mie_tint = Color( 0.137255, 0.184314, 0.292196, 1 )
-atm_moon_mie_intensity = 0.7
-atm_moon_mie_anisotropy = 0.809
-fog_visible = true
-fog_atm_level_params_offset = Vector3( 0, 0, -1 )
-fog_density = 0.0262283
-fog_rayleigh_depth = 0.116
-fog_mie_depth = 0.0454481
-fog_falloff = 2.817
-fog_start = 0.0
-fog_end = 311.927
-fog_layers = 524288
-fog_render_priority = 123
-clouds_thickness = 1.7
-clouds_coverage = 0.5
-clouds_absorption = 2.0
-clouds_sky_tint_fade = 0.5
-clouds_intensity = 10.0
-clouds_size = 2.0
-clouds_uv = Vector2( 0.16, 0.11 )
-clouds_offset = Vector2( 0.21, 0.175 )
-clouds_offset_speed = 0.01
-set_clouds_texture = false
-clouds_cumulus_visible = true
-clouds_cumulus_day_color = Color( 0.823529, 0.87451, 1, 1 )
-clouds_cumulus_horizon_light_color = Color( 1, 0.333333, 0.152941, 1 )
-clouds_cumulus_night_color = Color( 0.090196, 0.094118, 0.129412, 1 )
-clouds_cumulus_thickness = 0.0243
-clouds_cumulus_coverage = 0.55
-clouds_cumulus_absorption = 2.0
-clouds_cumulus_noise_freq = 2.7
-clouds_cumulus_intensity = 1.0
-clouds_cumulus_mie_intensity = 1.0
-clouds_cumulus_mie_anisotropy = 0.206
-clouds_cumulus_size = 0.5
-clouds_cumulus_offset = Vector3( 0.64, 0.522, 0.128 )
-clouds_cumulus_offset_speed = 0.005
-set_clouds_cumulus_texture = false
-enviro = null
-
-[node name="_SkyMeshI" type="MeshInstance" parent="WorldEnvironment/Skydome"]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 1e-07, 1e-07, 1e-07 )
-layers = 4
-material_override = SubResource( 12 )
-cast_shadow = 0
-extra_cull_margin = 16384.0
-mesh = SubResource( 13 )
-material/0 = null
-
-[node name="MoonRender" parent="WorldEnvironment/Skydome" instance=ExtResource( 7 )]
-size = Vector2( 256, 256 )
-
-[node name="_FogMeshI" type="MeshInstance" parent="WorldEnvironment/Skydome"]
-layers = 524288
-material_override = SubResource( 14 )
-cast_shadow = 0
-extra_cull_margin = 16384.0
-mesh = SubResource( 15 )
-material/0 = null
-
-[node name="_CloudsCumulusI" type="MeshInstance" parent="WorldEnvironment/Skydome"]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 1e-07, 1e-07, 1e-07 )
-layers = 4
-material_override = SubResource( 16 )
-cast_shadow = 0
-extra_cull_margin = 16384.0
-mesh = SubResource( 17 )
-material/0 = null
-
-[node name="MoonLight" type="DirectionalLight" parent="WorldEnvironment/Skydome"]
-transform = Transform( 0, -0.713361, -0.700797, 0.444247, -0.627847, 0.639103, -0.895904, -0.311327, 0.316909, -0.700797, 0.639103, 0.316909 )
-light_color = Color( 0.572549, 0.776471, 0.956863, 1 )
-light_energy = 0.2907
-shadow_enabled = true
-
-[node name="Spatial" type="Spatial" parent="WorldEnvironment/Skydome"]
-
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
@@ -317,5 +64,7 @@ max_db = 1.0
 pitch_scale = 1.36
 autoplay = true
 max_distance = 2000.0
+
+[node name="WorldEnvironment" parent="." instance=ExtResource( 6 )]
 
 [editable path="asset_map_cyber"]
