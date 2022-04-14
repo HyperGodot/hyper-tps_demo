@@ -15,6 +15,7 @@
 [ext_resource path="res://addons/jc.godot.time-of-day-common/Assets/ThirdParty/Graphics/Textures/MilkyWay/StarField.jpg" type="Texture" id=13]
 [ext_resource path="res://addons/jc.godot.time-of-day-common/Assets/MyAssets/Graphics/Textures/noise.jpg" type="Texture" id=14]
 [ext_resource path="res://addons/jc.godot.time-of-day-common/Assets/MyAssets/Graphics/Textures/noiseClouds.png" type="Texture" id=15]
+[ext_resource path="res://assets/maps/maps_cyber/map_cyber_environment.res" type="Environment" id=16]
 
 [sub_resource type="GIProbeData" id=1]
 bounds = AABB( -40, -40, -100, 80, 80, 200 )
@@ -25,16 +26,6 @@ dynamic_range = 4
 bias = 1.5
 normal_bias = 0.0
 propagation = 0.7
-
-[sub_resource type="Environment" id=2]
-background_mode = 2
-ambient_light_energy = 0.0
-ss_reflections_enabled = true
-ssao_enabled = true
-glow_enabled = true
-glow_intensity = 4.65
-glow_strength = 0.91
-glow_bicubic_upscale = true
 
 [sub_resource type="ViewportTexture" id=11]
 
@@ -183,7 +174,7 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16.031,
 teleportation_destination = "map_test"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 2 )
+environment = ExtResource( 16 )
 
 [node name="Skydome" type="Node" parent="WorldEnvironment"]
 script = ExtResource( 6 )
@@ -309,6 +300,8 @@ transform = Transform( 0, -0.713361, -0.700797, 0.444247, -0.627847, 0.639103, -
 light_color = Color( 0.572549, 0.776471, 0.956863, 1 )
 light_energy = 0.2907
 shadow_enabled = true
+
+[node name="Spatial" type="Spatial" parent="WorldEnvironment/Skydome"]
 
 [node name="Area" type="Area" parent="."]
 
