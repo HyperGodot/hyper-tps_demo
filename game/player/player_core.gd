@@ -204,6 +204,11 @@ func _physics_process(_delta):
 		respawnPlayer()
 		return
 	
+	# Check for New World Environment
+	if(playerWantsNewWorldEnvironment):
+		playerWantsNewWorldEnvironment = false
+		currentMap.updateMapWorldEnvironmentScene()
+	
 	# Moving the character
 	var y_cache : float = kinematicVelocity.y
 	kinematicVelocity = kinematicVelocity.linear_interpolate(currentDirection * movementSpeed, movementAcceleration * _delta)
@@ -294,12 +299,6 @@ func respawnPlayer():
 	playerWantsToReleaseGrapplingHook = true
 	$Model/Sound_Teleport_1.play()
 	global_transform.origin = currentSpawnLocation
-	
-	# Check for New World Environment
-	if(playerWantsNewWorldEnvironment):
-		playerWantsNewWorldEnvironment = false
-		currentMap.updateMapWorldEnvironmentScene()
-	# translation = ( get_tree().get_current_scene().getSpawnLocation() )# ) = currentSpawnLocation
 
 func playerCanJump() -> bool:
 	if( self.is_on_floor() ):

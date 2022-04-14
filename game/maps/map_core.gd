@@ -29,7 +29,6 @@ func updateMapWorldEnvironmentScene():
 	var worldEnvironment = getInstanceOfMapWorldEnvironmentScene()
 	if(worldEnvironment != null):
 		add_child(worldEnvironment.instance())
-	pass
 
 func addGrapplingHookCollisionMaskToMap():
 	var _name = self.name
@@ -54,4 +53,5 @@ func _on_Area_body_entered(body, map_name):
 	if(body is KinematicBody):
 		var mapNode = get_tree().get_current_scene().find_node(map_name, true, false)
 		body.currentMap = mapNode
+		body.playerWantsNewWorldEnvironment = true
 		

@@ -27,6 +27,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 357.971, 3.8147e-06, 43.2013 )
 [node name="Players" type="Node" parent="."]
 
 [node name="PlayerLocal" parent="Players" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 69.4813, -3.05659, 181.497 )
 
 [node name="HyperGodot" type="Node" parent="."]
 script = ExtResource( 6 )
