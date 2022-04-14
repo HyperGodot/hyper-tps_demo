@@ -309,4 +309,13 @@ shadow_enabled = true
 transform = Transform( 1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, 0, 0 )
 shape = SubResource( 10 )
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 38.275, 0 )
+stream = ExtResource( 1 )
+unit_size = 5.0
+max_db = 1.0
+pitch_scale = 1.36
+autoplay = true
+max_distance = 2000.0
+
 [editable path="asset_map_cyber"]
