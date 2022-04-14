@@ -3,7 +3,6 @@ extends Spatial
 export var teleportation_destination : String = "map_test"
 
 onready var mapsNode : Node = get_tree().get_current_scene().get_node("Maps")
-onready var currentMapNode : Node = get_tree().get_current_scene().get_node("Maps").get_child(0)
 
 
 # Declare member variables here. Examples:
@@ -20,23 +19,18 @@ func _on_Teleporter_gameplay_entered():
 
 
 func tryMapChange(mapChangeName : String, sendGossip : bool, playerNode):
-	var mapCurrentName = currentMapNode.name
+	var mapCurrentName = playerNode.currentMap.map_name
 	var mapNode = null
 	if(mapCurrentName != teleportation_destination):
-		currentMapNode.queue_free()
 		if(mapChangeName == "map_test"):
-			print("")
-			mapNode = get_tree().get_current_scene().map_test
+			mapNode = mapsNode.find_node("map_test", true, false)
 		elif(mapChangeName == "map_cyber"):
-			print("")
-			mapNode = get_tree().get_current_scene().map_cyber
+			mapNode = mapsNode.find_node("map_cyber", true, false)
 		elif(mapChangeName == "map_cyber1"):
-			print("")
-			mapNode = get_tree().get_current_scene().map_cyber1
-		var newMap = mapNode.instance()
-		mapsNode.add_child(newMap)
+			mapNode = mapsNode.find_node("map_cyber1", true, false)
 		# Find a Respawn Point
-		playerNode.currentSpawnLocation = playerNode.getSpawnLocation()
+		playerNode.currentSpawnLocation = playerNode.getSpawnLocationForMapName(mapChangeName)
+		playerNode.currentMap = mapNode
 		playerNode.playerWantsToRespawn = true
 		
 		if(sendGossip):

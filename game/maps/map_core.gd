@@ -2,6 +2,8 @@ extends Spatial
 
 onready var playerSpawnNodes : Node = find_node("PlayerSpawnNodes")
 
+export var map_name : String = ""
+
 func _ready():
 	randomize()
 	addGrapplingHookCollisionMaskToMap()
@@ -12,7 +14,7 @@ func _process(_delta):
 func getSpawnLocation() -> Vector3:
 	var childCount : int = playerSpawnNodes.get_child_count()
 	var spawnNode : Spatial = playerSpawnNodes.get_child( randi() % childCount )
-	return spawnNode.translation
+	return spawnNode.global_transform.origin
 
 func addGrapplingHookCollisionMaskToMap():
 	var _name = self.name
@@ -31,3 +33,10 @@ func checkAndSetChildrenGrapplingHookMask(var _Node, indentLevel : int):
 	var childCount = _Node.get_child_count()
 	for i in range(childCount):
 		checkAndSetChildrenGrapplingHookMask(_Node.get_child(i), indentLevel + 1)
+
+
+func _on_Area_body_entered(body, map_name):
+	if(body is KinematicBody):
+		var mapNode = get_tree().get_current_scene().find_node(map_name, true, false)
+		body.currentMap = mapNode
+		

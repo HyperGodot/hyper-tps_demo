@@ -37,7 +37,7 @@ onready var meshCollisionShape : CollisionShape = $CollisionShape
 onready var grappleHookCast : RayCast = $CameraHead/CameraPivot/GrappleHookCast
 
 onready var grappleVisualPoint_1 = $GrapplingHook/GrappleVisualPoint_1
-onready var grappleVisualPoint_2 = $GrapplingHook/GrappleVisualPoint_2
+# onready var grappleVisualPoint_2 = $GrapplingHook/GrappleVisualPoint_2
 onready var grappleVisualPoint = grappleVisualPoint_1
 
 onready var grappleLineHelper : Spatial = $Model/GrappleLineHelper
@@ -57,7 +57,7 @@ var playerWantsToReleaseGrapplingHook : bool = false
 #onready var hyperdebugui_gateway_startstop_button : Button = $HyperGodotDebugUI/HypercoreDebugPanel/HypercoreDebugContainer/GatewayStartStopButton
 #onready var hyperdebugui_gossipid_list : ItemList = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGateway")
 
-var currentMap = null
+onready var currentMap = get_tree().get_current_scene().get_node("Maps").get_child(0)
 var originalOrigin : Vector3 = Vector3.ZERO
 var currentSpawnLocation : Vector3 = Vector3.ZERO
 
@@ -81,14 +81,11 @@ var collisions : Dictionary = {}
 var Particles_Land = preload("res://game/player/particles.tscn")
 
 func _ready():
-	# Get Current Map
-	currentMap = get_tree().get_current_scene().get_node("Maps").get_child(0)
-	
 	# Backup Origin
 	originalOrigin = self.translation
 	
 	# Spawn into Map
-	currentSpawnLocation = getSpawnLocation()
+	currentSpawnLocation = getSpawnLocationForMapName(currentMap.map_name)
 	playerWantsToRespawn = true
 	
 	# Get HyperGossip
@@ -102,9 +99,13 @@ func snapShotUpdate(_translation : Vector3, _meshDirection : Vector3, _lookingDi
 func directionUpdate(_direction : Vector3):
 	self.currentDirection = _direction
 	
-func getSpawnLocation() -> Vector3:
-	return get_tree().get_current_scene().getSpawnLocation()
-
+func getSpawnLocationForMapName(mapName : String) -> Vector3:
+	# Get Map Node
+	var mapNode = get_tree().get_current_scene().get_node("Maps").find_node(mapName, true, false)
+	if(mapNode == null):
+		return get_tree().get_current_scene().get_node("Maps").find_node("map_test", true, false).getSpawnLocation()
+	else:
+		return mapNode.getSpawnLocation()
 
 func _process(_delta):
 	if(currentDirection != Vector3.ZERO):
@@ -289,7 +290,8 @@ func respawnPlayer():
 	grapplingHook_IsHooked = false
 	playerWantsToShootGrapplingHook = false
 	playerWantsToReleaseGrapplingHook = true
-	global_transform.origin = get_tree().get_current_scene().getSpawnLocation()
+	$Model/Sound_Teleport_1.play()
+	global_transform.origin = currentSpawnLocation
 	# translation = ( get_tree().get_current_scene().getSpawnLocation() )# ) = currentSpawnLocation
 
 func playerCanJump() -> bool:
@@ -336,7 +338,7 @@ func _on_Input_player_move(direction : Vector3):
 
 func _on_Input_player_restore_origin() -> void:
 	playerWantsToRespawn = true
-	var spawnLocation : Vector3 = getSpawnLocation()
+	var spawnLocation : Vector3 = getSpawnLocationForMapName(currentMap.map_name)
 	currentSpawnLocation = spawnLocation
 	
 	var data : Dictionary = {

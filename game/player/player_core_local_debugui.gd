@@ -1,7 +1,8 @@
 extends Control
 
-onready var playerNode = get_node("../../../Players/PlayerLocal")
-onready var currentMapNode : Node = get_tree().get_current_scene().get_node("CurrentMap")
+onready var playerNode = get_tree().get_current_scene().get_node("Players").get_node("PlayerLocal")
+
+onready var currentmapValue : Label = $Panel/MarginContainer/GridContainer/Current_Map_Value
 onready var inputValue : Label = $Panel/MarginContainer/GridContainer/Input_Value
 onready var velocityValue : Label = $Panel/MarginContainer/GridContainer/Velocity_Value
 onready var speedValue : Label = $Panel/MarginContainer/GridContainer/Speed_Value
@@ -26,6 +27,7 @@ func _ready():
 	hyperGossip = get_tree().get_current_scene().get_node("HyperGodot").get_node("HyperGossip")
 
 func _process(_delta):
+	currentmapValue.text = String(playerNode.currentMap.map_name)
 	inputValue.text = String(playerNode.currentDirection)
 	velocityValue.text = String(playerNode.kinematicVelocity)
 	speedValue.text = String(playerNode.currentSpeed)
@@ -77,7 +79,7 @@ func tryMapChange(mapChangeName : String, sendGossip : bool):
 		elif(mapChangeName == "map_cyber1"):
 			mapNode = get_tree().get_current_scene().map_cyber1
 		var newMap = mapNode.instance()
-		currentMapNode.add_child(newMap)
+		#currentMapNode.add_child(newMap)
 		# Update Current Map
 		playerNode.currentMap = get_tree().get_current_scene().get_node("CurrentMap").get_child(1)
 		# Update Actual Map

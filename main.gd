@@ -1,31 +1,19 @@
 extends Node
 
-onready var map_test = preload("res://game/maps/map_test/map_test.tscn")
-onready var map_cyber = preload("res://game/maps/map_cyber/map_cyber.tscn")
-onready var map_cyber1 = preload("res://game/maps/map_cyber1/map_cyber1.scn")
+export(NodePath) var MAP_TEST : NodePath
+export(NodePath) var map_cyber : NodePath
+export(NodePath) var map_cyber1 : NodePath
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-func fartPussy():
+func _ready():
 	pass
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func _process(delta):
+	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-func getSpawnLocation() -> Vector3:
+func getSpawnLocation(bodyNode, mapNode) -> Vector3:
 	# Get Number of Maps
 	var childCount : int = self.get_child(0).get_child_count()
-	# Get Random Map
-	var mapNode = self.get_child(0).get_child( randi() % childCount )
 	
 	# Get Random Spawn Location from Map
 	var playerSpawnNodes = mapNode.find_node("PlayerSpawnNodes", true, false)

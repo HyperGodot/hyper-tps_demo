@@ -12,6 +12,9 @@
 
 [node name="Main" type="Node"]
 script = ExtResource( 7 )
+MAP_TEST = NodePath("Maps/map_test")
+map_cyber = NodePath("Maps/map_cyber")
+map_cyber1 = NodePath("Maps/map_cyber1")
 
 [node name="Maps" type="Node" parent="."]
 
@@ -20,9 +23,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 82.6497, 0, 204.33 )
 
 [node name="map_cyber" parent="Maps" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 132.051, 0, -243 )
+map_name = "map_cyber"
 
 [node name="map_cyber1" parent="Maps" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 357.971, 3.8147e-06, 43.2013 )
+map_name = "map_cyber1"
 
 [node name="Players" type="Node" parent="."]
 

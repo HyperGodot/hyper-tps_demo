@@ -16,7 +16,7 @@ script = ExtResource( 1 )
 margin_left = 10.0
 margin_top = 12.0
 margin_right = 333.0
-margin_bottom = 92.0
+margin_bottom = 112.0
 mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
 
@@ -32,16 +32,34 @@ __meta__ = {
 
 [node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer"]
 margin_right = 143.0
-margin_bottom = 68.0
+margin_bottom = 86.0
 mouse_filter = 2
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Input" type="Label" parent="Panel/MarginContainer/GridContainer"]
-margin_right = 63.0
+[node name="Current_Map" type="Label" parent="Panel/MarginContainer/GridContainer"]
+margin_right = 77.0
 margin_bottom = 14.0
+text = "Map Name :"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Current_Map_Value" type="Label" parent="Panel/MarginContainer/GridContainer"]
+margin_left = 81.0
+margin_right = 105.0
+margin_bottom = 14.0
+text = "N/A"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Input" type="Label" parent="Panel/MarginContainer/GridContainer"]
+margin_top = 18.0
+margin_right = 77.0
+margin_bottom = 32.0
 text = "Input :"
 align = 2
 __meta__ = {
@@ -49,17 +67,18 @@ __meta__ = {
 }
 
 [node name="Input_Value" type="Label" parent="Panel/MarginContainer/GridContainer"]
-margin_left = 67.0
-margin_right = 67.0
-margin_bottom = 14.0
+margin_left = 81.0
+margin_top = 18.0
+margin_right = 105.0
+margin_bottom = 32.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Velocity" type="Label" parent="Panel/MarginContainer/GridContainer"]
-margin_top = 18.0
-margin_right = 63.0
-margin_bottom = 32.0
+margin_top = 36.0
+margin_right = 77.0
+margin_bottom = 50.0
 text = "Velocity :"
 align = 2
 __meta__ = {
@@ -67,18 +86,18 @@ __meta__ = {
 }
 
 [node name="Velocity_Value" type="Label" parent="Panel/MarginContainer/GridContainer"]
-margin_left = 67.0
-margin_top = 18.0
-margin_right = 67.0
-margin_bottom = 32.0
+margin_left = 81.0
+margin_top = 36.0
+margin_right = 105.0
+margin_bottom = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Speed" type="Label" parent="Panel/MarginContainer/GridContainer"]
-margin_top = 36.0
-margin_right = 63.0
-margin_bottom = 50.0
+margin_top = 54.0
+margin_right = 77.0
+margin_bottom = 68.0
 text = "Speed :"
 align = 2
 __meta__ = {
@@ -86,18 +105,18 @@ __meta__ = {
 }
 
 [node name="Speed_Value" type="Label" parent="Panel/MarginContainer/GridContainer"]
-margin_left = 67.0
-margin_top = 36.0
-margin_right = 67.0
-margin_bottom = 50.0
+margin_left = 81.0
+margin_top = 54.0
+margin_right = 105.0
+margin_bottom = 68.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OnFloor" type="Label" parent="Panel/MarginContainer/GridContainer"]
-margin_top = 54.0
-margin_right = 63.0
-margin_bottom = 68.0
+margin_top = 72.0
+margin_right = 77.0
+margin_bottom = 86.0
 text = "On Floor :"
 align = 2
 __meta__ = {
@@ -105,15 +124,16 @@ __meta__ = {
 }
 
 [node name="OnFloor_Value" type="Label" parent="Panel/MarginContainer/GridContainer"]
-margin_left = 67.0
-margin_top = 54.0
-margin_right = 67.0
-margin_bottom = 68.0
+margin_left = 81.0
+margin_top = 72.0
+margin_right = 105.0
+margin_bottom = 86.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Panel2" type="Panel" parent="."]
+visible = false
 margin_left = 10.0
 margin_top = 127.0
 margin_right = 333.0

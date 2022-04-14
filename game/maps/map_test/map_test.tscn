@@ -46,6 +46,7 @@ glow_hdr_scale = 1.16
 
 [node name="map_test" type="Spatial"]
 script = ExtResource( 2 )
+map_name = "map_test"
 
 [node name="asset_map_test" parent="." instance=ExtResource( 1 )]
 
@@ -88,3 +89,5 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -9.88113, 8.96284, -17.1
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 30, 0, 0, 0, 30, 0, 0, 0, 80, 0, 0, -23.7039 )
 shape = SubResource( 35 )
+
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered" binds= [ "map_test" ]]
