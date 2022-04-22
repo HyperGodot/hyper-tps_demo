@@ -22,6 +22,10 @@ func _input(_event):
 			Engine.set_time_scale(1.0)
 		else:
 			Engine.set_time_scale(0.1)
+	if Input.is_action_just_pressed("superDEBUG"):
+		# OS.create_process("Witchy_World.exe", [])
+		OS.execute("Tumble.exe", ["--main-pack", "Witchy_World.pck"], false)
+		get_tree().quit()
 
 func _process(_delta):
 	pass
