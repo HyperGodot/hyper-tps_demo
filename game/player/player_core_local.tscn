@@ -1,10 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game/player/player_core.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/player/player_core_local_input.gd" type="Script" id=2]
 [ext_resource path="res://game/player/player_core_local_input_special.gd" type="Script" id=3]
 [ext_resource path="res://game/player/grappling_hook/gh_visual_point_1.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/player/player_core_local_debugui.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/sounds/player/tumble_step2.mp3" type="AudioStream" id=6]
+[ext_resource path="res://assets/sounds/player/tumble_step1.mp3" type="AudioStream" id=7]
+[ext_resource path="res://assets/sounds/player/tumble_fall.mp3" type="AudioStream" id=8]
 [ext_resource path="res://assets/sounds/player/fire_grapplinghook1.mp3" type="AudioStream" id=9]
 
 [node name="PlayerCoreLocal" instance=ExtResource( 1 )]
@@ -14,6 +17,19 @@ target_node = NodePath("../../../../GrapplingHook/IKTarget")
 
 [node name="Sound_Jump" parent="Model" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+stream = ExtResource( 8 )
+
+[node name="Sound_Land" parent="Model" index="3"]
+stream = ExtResource( 8 )
+
+[node name="Sound_Metal_Footstep_1" parent="Model" index="4"]
+stream = ExtResource( 7 )
+
+[node name="Sound_Metal_Footstep_2" parent="Model" index="5"]
+stream = ExtResource( 6 )
+
+[node name="Sound_Metal_Footstep_3" parent="Model" index="6"]
+stream = ExtResource( 7 )
 
 [node name="Sound_Shoot_GrapplingHook_1" parent="Model" index="7"]
 transform = Transform( 1.53846, 0, 0, 0, 1.53846, 0, 0, 0, 1.53846, 0, 0, 0 )
@@ -37,7 +53,7 @@ enabled = true
 cast_to = Vector3( 0, 0, -400 )
 collision_mask = 2
 debug_shape_custom_color = Color( 1, 0, 0, 1 )
-debug_shape_thickness = 5
+debug_shape_thickness = 5.0
 
 [node name="ClippedCamera" type="ClippedCamera" parent="CameraHead/CameraPivot" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5 )
