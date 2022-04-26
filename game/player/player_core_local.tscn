@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/sounds/player/tumble_step2.mp3" type="AudioStream" id=6]
 [ext_resource path="res://assets/sounds/player/tumble_step1.mp3" type="AudioStream" id=7]
 [ext_resource path="res://assets/sounds/player/tumble_fall.mp3" type="AudioStream" id=8]
-[ext_resource path="res://assets/sounds/player/fire_grapplinghook1.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/sounds/player/tumble_grapplinghook.mp3" type="AudioStream" id=9]
 
 [node name="PlayerCoreLocal" instance=ExtResource( 1 )]
 

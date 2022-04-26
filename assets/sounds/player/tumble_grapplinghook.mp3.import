@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/tumble_grapplinghook.mp3-12ce62bd21c64737c6afb83060e4027c.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/player/tumble_grapplinghook.mp3"
+dest_files=[ "res://.import/tumble_grapplinghook.mp3-12ce62bd21c64737c6afb83060e4027c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
