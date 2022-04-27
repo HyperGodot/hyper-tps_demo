@@ -45,6 +45,7 @@ fov = 90.0
 far = 8192.0
 
 [node name="PlayerDebugUI" parent="." index="7" instance=ExtResource( 5 )]
+visible = false
 
 [node name="GrappleVisualPoint_1" parent="GrapplingHook" index="1" instance=ExtResource( 4 )]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://game/maps/map_test/map_test.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/player/player_core_local.tscn" type="PackedScene" id=2]
@@ -9,9 +9,14 @@
 [ext_resource path="res://main.gd" type="Script" id=7]
 [ext_resource path="res://game/maps/map_cyber1/map_cyber1.scn" type="PackedScene" id=8]
 [ext_resource path="res://game/maps/map_cyber/map_cyber.tscn" type="PackedScene" id=9]
+[ext_resource path="res://menu/main/menu_main.scn" type="PackedScene" id=10]
 
 [node name="Main" type="Node"]
 script = ExtResource( 7 )
+
+[node name="UI" type="Node" parent="."]
+
+[node name="Menu_Main" parent="UI" instance=ExtResource( 10 )]
 
 [node name="Maps" type="Node" parent="."]
 
@@ -39,6 +44,7 @@ script = ExtResource( 4 )
 script = ExtResource( 3 )
 
 [node name="HyperDebugUI" parent="HyperGodot" instance=ExtResource( 5 )]
+visible = false
 
 [node name="LocalSnapshotTimer" type="Timer" parent="HyperGodot"]
 autostart = true
