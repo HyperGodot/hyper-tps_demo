@@ -26,8 +26,8 @@
 [ext_resource path="res://game/player/player_core.gd" type="Script" id=24]
 [ext_resource path="res://assets/sounds/player/generic_robot_jump.wav" type="AudioStream" id=25]
 [ext_resource path="res://assets/sounds/player/metal_footstep_3.wav" type="AudioStream" id=26]
-[ext_resource path="res://assets/sounds/player/metal_footstep_2.wav" type="AudioStream" id=27]
-[ext_resource path="res://assets/sounds/player/metal_footstep_1.wav" type="AudioStream" id=28]
+[ext_resource path="res://assets/sounds/player/tumble_step1.mp3" type="AudioStream" id=27]
+[ext_resource path="res://assets/sounds/player/tumble_step2.mp3" type="AudioStream" id=28]
 [ext_resource path="res://assets/sounds/player/fire_grapplinghook.wav" type="AudioStream" id=29]
 [ext_resource path="res://assets/sounds/player/release_grapplinghook.wav" type="AudioStream" id=30]
 [ext_resource path="res://assets/sounds/player/generic_robot_land.wav" type="AudioStream" id=31]
@@ -61,11 +61,11 @@ attenuation_filter_cutoff_hz = 20500.0
 
 [node name="Sound_Metal_Footstep_1" type="AudioStreamPlayer3D" parent="Model"]
 transform = Transform( 1.53846, 0, 0, 0, 1.53846, 0, 0, 0, 1.53846, 0, 0, 0 )
-stream = ExtResource( 28 )
+stream = ExtResource( 27 )
 
 [node name="Sound_Metal_Footstep_2" type="AudioStreamPlayer3D" parent="Model"]
 transform = Transform( 1.53846, 0, 0, 0, 1.53846, 0, 0, 0, 1.53846, 0, 0, 0 )
-stream = ExtResource( 27 )
+stream = ExtResource( 28 )
 
 [node name="Sound_Metal_Footstep_3" type="AudioStreamPlayer3D" parent="Model"]
 transform = Transform( 1.53846, 0, 0, 0, 1.53846, 0, 0, 0, 1.53846, 0, 0, 0 )
