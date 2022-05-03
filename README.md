@@ -24,3 +24,7 @@ This is a very basic demo with a few bugs. It's main goal is to showcase a third
 * collision detection can be sticky , if you get stuck you can always press r to respawn. 
 * loading in different world environments can cause momentary lag while it updates, the more you go through the teleporters the less this happens. 
 * step height is still an issue with our player controller, jump a lot and use the grappling hook!
+* to start multiplayer
+  * press esc to bring up main menu , select multiplayer
+  * click start to start gateway 
+  * you can enter any qualified hyper:// url such as hyper://c7fd48cd4c89dc041ac66a414c07e1d4553dc3f734833c4663f9cea94ccbb680 or one with a dns record that points to a hyper url.
