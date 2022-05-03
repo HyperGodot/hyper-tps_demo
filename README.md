@@ -1,6 +1,5 @@
-# Tumble game-play demo
+# Tumble HyperGodot Demo
 ![tumble demo](tumble.jpg)
-**HyperGodot Demo of a Third-Person Controller**
 
 This is a very basic demo with a few bugs. It's main goal is to showcase a third person game that uses the [hypercore protocol](https://hypercore-protocol.org/) for multiplayer. We hope this can serve as a resource for others who may wish to use hypercore for p2p 3d multiplayer games.
 
