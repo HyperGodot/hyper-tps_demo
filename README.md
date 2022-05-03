@@ -23,3 +23,4 @@ This is a very basic demo with a few bugs. It's main goal is to showcase a third
 * hypercore-gateway uses a slightly older version of hypercore. while hole punching is good , some router configurations do require you to open port 4973.
 * collision detection can be sticky , if you get stuck you can always press r to respawn. 
 * loading in different world environments can cause momentary lag while it updates, the more you go through the teleporters the less this happens. 
+* step height is still an issue with our player controller, jump a lot and use the grappling hook!
