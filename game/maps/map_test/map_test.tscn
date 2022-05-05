@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/maps/map_test/asset_map_test.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/maps/map_core.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/maps/map_test/map_test_environment.scn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sounds/ambience/howling_wind.mp3" type="AudioStream" id=6]
 [ext_resource path="res://game/map_decorations/portal.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/map_decorations/teleporter.gd" type="Script" id=8]
 
 [sub_resource type="BoxShape" id=35]
 
@@ -31,6 +32,8 @@ max_distance = 500.0
 
 [node name="Teleporter_1" parent="Teleporters" instance=ExtResource( 4 )]
 transform = Transform( 0.655427, 0, -0.755259, 0, 1, 0, 0.755259, 0, 0.655427, -15.0371, -3.75616, -37.6492 )
+script = ExtResource( 8 )
+teleportation_destination = "map_cyber1"
 
 [node name="PlayerSpawnNodes" type="Spatial" parent="."]
 
