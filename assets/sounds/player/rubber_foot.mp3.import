@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/rubber_foot.mp3-2b675c58334f1e5619000f02fa75724d.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/player/rubber_foot.mp3"
+dest_files=[ "res://.import/rubber_foot.mp3-2b675c58334f1e5619000f02fa75724d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
