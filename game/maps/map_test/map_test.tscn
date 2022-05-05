@@ -32,9 +32,6 @@ max_distance = 500.0
 [node name="Teleporter_1" parent="Teleporters" instance=ExtResource( 4 )]
 transform = Transform( 0.655427, 0, -0.755259, 0, 1, 0, 0.755259, 0, 0.655427, -15.0371, -3.75616, -37.6492 )
 
-[node name="Teleporter" parent="Teleporters" instance=ExtResource( 7 )]
-transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -2.36777, 1.11981, -39.4728 )
-
 [node name="PlayerSpawnNodes" type="Spatial" parent="."]
 
 [node name="Spawnpad_1" parent="PlayerSpawnNodes" instance=ExtResource( 3 )]
@@ -57,5 +54,11 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -9.88113, 8.96284, -17.1
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 30, 0, 0, 0, 30, 0, 0, 0, 80, 0, 0, -23.7039 )
 shape = SubResource( 35 )
+
+[node name="Portals" type="Spatial" parent="."]
+
+[node name="Portal" parent="Portals" instance=ExtResource( 7 )]
+transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -2.39988, 1.13516, -33.2994 )
+portal_destination = "witchy-world.pck"
 
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered" binds= [ "map_test" ]]

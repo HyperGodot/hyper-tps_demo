@@ -50,7 +50,10 @@ func _on_CollisionShape_gameplay_entered():
 func _on_Hitbox_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if(body is KinematicBody):
 		tryMapChange(teleportation_destination, true, body)
+		print("blah")
+
 
 
 func _on_Hitbox_body_entered(body):
-	pass # Replace with function body.
+	if(body is KinematicBody):
+		tryMapChange(teleportation_destination, true, body)

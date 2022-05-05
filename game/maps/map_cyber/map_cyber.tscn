@@ -50,7 +50,6 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15.6924, -12.4585, 11.85
 [node name="Teleporter_1" parent="PlayerTeleportNodes" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.8994, 2.9665, -56.0907 )
 script = ExtResource( 7 )
-teleportation_destination = "map_test"
 
 [node name="Teleporter" parent="PlayerTeleportNodes" instance=ExtResource( 5 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 16.031, -1.21, 38.792 )
