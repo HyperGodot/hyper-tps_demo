@@ -6,7 +6,7 @@ export var portal_destination : String = ""
 func _ready():
 	pass # Replace with function body.
 
-func tryGameChange(mapChangeName : String, sendGossip : bool, playerNode):
+func tryGameChange(gameChangeName : String, sendGossip : bool, playerNode):
 	OS.execute(OS.get_executable_path(), ["--main-pack", portal_destination], false)
 	get_tree().quit()
 
